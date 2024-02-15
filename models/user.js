@@ -29,7 +29,9 @@ const userSchema = new Schema(
       required: [true, "Birthday is required"],
       default: defBirthDate,
     },
-    avatarUrl: String,
+    avatarUrl: {
+      type: String,
+    },
     token: {
       type: String,
       default: "",

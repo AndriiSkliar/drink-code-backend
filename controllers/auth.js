@@ -23,6 +23,7 @@ const signUp = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
     const avatarURL = gravatar.url(email);
+    console.log(avatarURL);
     const verificationToken = nanoid();
 
     const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL, verificationToken });
@@ -40,7 +41,7 @@ const signUp = async (req, res) => {
             "name": newUser.name,
             "email": newUser.email,
             "avatarURL": newUser.avatarURL,
-            "birthdate": newUser.birthdate,
+            "birthday": newUser.birthday,
         }
     })
 
