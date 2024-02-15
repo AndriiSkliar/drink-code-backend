@@ -106,10 +106,12 @@ const signIn = async (req, res) => {
 
     res.json({
         token,
-        user: {
-            email,
-            subscription:user.subscription,
-        },
+        "user": {
+            "name": user.name,
+            "email": user.email,
+            "avatarURL": user.avatarURL,
+            "birthdate": user.birthdate,
+      }
     })
 }
 
@@ -120,7 +122,7 @@ const getCurrent = async(req, res)=> {
 
     res.json({
         email,
-        subscription:user.subscription,
+        avatarURL:user.avatarURL,
     })
 }
 
