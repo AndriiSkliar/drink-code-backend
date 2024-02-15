@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const gravatar = require("gravatar");
-const path = require("path");
-const fs = require("fs/promises");
+// const path = require("path");
+// const fs = require("fs/promises");
 const {nanoid} = require("nanoid");
 
 const { User } = require('../models/user');
@@ -11,7 +11,7 @@ const { HttpError, ctrlWrapper, sendEmail } = require("../helpers");
 
 const { SECRET_KEY, BASE_URL } = process.env;
 
-const avatarsDir = path.join(__dirname, "../", "public", "avatars");
+// const avatarsDir = path.join(__dirname, "../", "public", "avatars");
 
 const signUp = async (req, res) => {
     const {email, password } = req.body;
@@ -135,19 +135,19 @@ const logout = async(req, res) => {
     })
 }
 
-const updateAvatar = async(req, res)=> {
-    const {_id} = req.user;
-    const {path: tempUpload, originalname} = req.file;
-    const filename = `${_id}_${originalname}`;
-    const resultUpload = path.join(avatarsDir, filename);
-    await fs.rename(tempUpload, resultUpload);
-    const avatarURL = path.join("avatars", filename);
-    await User.findByIdAndUpdate(_id, {avatarURL});
+// const updateAvatar = async(req, res)=> {
+//     const {_id} = req.user;
+//     const {path: tempUpload, originalname} = req.file;
+//     const filename = `${_id}_${originalname}`;
+//     const resultUpload = path.join(avatarsDir, filename);
+//     await fs.rename(tempUpload, resultUpload);
+//     const avatarURL = path.join("avatars", filename);
+//     await User.findByIdAndUpdate(_id, {avatarURL});
 
-    res.json({
-        avatarURL,
-    })
-}
+//     res.json({
+//         avatarURL,
+//     })
+// }
 
 
 module.exports = {
@@ -158,6 +158,6 @@ module.exports = {
 
     getCurrent: ctrlWrapper(getCurrent),
     logout: ctrlWrapper(logout),
-    updateAvatar: ctrlWrapper(updateAvatar),
+    // updateAvatar: ctrlWrapper(updateAvatar),
 
 }
