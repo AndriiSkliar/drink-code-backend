@@ -29,13 +29,21 @@ const userSchema = new Schema(
       required: [true, "Birthday is required"],
       default: defBirthDate,
     },
-    avatarUrl: {
+    avatarURL: {
       type: String,
     },
     token: {
       type: String,
+      default: null,
+    },
+    verificationToken: {
+      type: String,
       default: "",
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    }
   },
   {
     versionKey: false,
@@ -57,6 +65,10 @@ const signInSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required()
+});
+
 const updateNameSchema = Joi.object({
   name: Joi.string().required(),
 });
@@ -65,6 +77,7 @@ const schemas = {
   signUpSchema,
   signInSchema,
   updateNameSchema,
+  emailSchema
 };
 
 const User = model("user", userSchema);

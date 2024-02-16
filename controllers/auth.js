@@ -31,7 +31,7 @@ const signUp = async (req, res) => {
     const verifyEmail = {
         to: email,
         subject: "Verify email",
-        html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationToken}">Click verify email</a>`
+        html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationToken}">Click verify email</a>`
     };
 
     await sendEmail(verifyEmail);
@@ -75,7 +75,7 @@ const resendVerifyEmail = async(req, res)=> {
     const verifyEmail = {
         to: email,
         subject: "Verify email",
-        html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${user.verificationToken}">Click verify email</a>`
+        html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${user.verificationToken}">Click verify email</a>`
     };
 
     await sendEmail(verifyEmail);
@@ -112,7 +112,7 @@ const signIn = async (req, res) => {
             "email": user.email,
             "avatarURL": user.avatarURL,
             "birthdate": user.birthdate,
-      }
+        }
     })
 }
 
@@ -122,8 +122,10 @@ const getCurrent = async(req, res)=> {
     const user = await User.findOne({email});
 
     res.json({
+        name: user.name,
         email,
-        avatarURL:user.avatarURL,
+        avatarURL: user.avatarURL,
+        birthday:user.birthday
     })
 }
 
@@ -136,6 +138,26 @@ const logout = async(req, res) => {
     })
 }
 
+const updateUser = async (req, res) => {
+
+    let newUserName, newAvatarURL;
+    
+    const { _id, name: currentUserName } = req.user;                                                  
+    const { name } = req.body;
+    if (!name) { newUserName = currentUserName }
+    else { newUserName = name };
+    
+    if (!req.file)
+    {
+        const usr = await User.findByIdAndUpdate(_id, { name: newUserName }, { new: true });              
+        res.json({ name: usr.name, avatarURL: usr.avatarURL });
+    }
+    else                                                                                                {
+        newAvatarURL = req.file.path;
+        const usr = await User.findByIdAndUpdate(_id, { name: newUserName, avatarURL: newAvatarURL }, { new: true });
+        res.json({ name: usr.name, avatarURL: usr.avatarURL });
+    }
+};
 // const updateAvatar = async(req, res)=> {
 //     const {_id} = req.user;
 //     const {path: tempUpload, originalname} = req.file;
@@ -159,6 +181,6 @@ module.exports = {
 
     getCurrent: ctrlWrapper(getCurrent),
     logout: ctrlWrapper(logout),
-    // updateAvatar: ctrlWrapper(updateAvatar),
+    updateUser: ctrlWrapper(updateUser),
 
 }
