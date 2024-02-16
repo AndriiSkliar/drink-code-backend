@@ -32,6 +32,10 @@ const userSchema = new Schema(
     avatarURL: {
       type: String,
     },
+    subscribe: {
+      type: Boolean,
+      default: false,
+    },
     token: {
       type: String,
       default: null,

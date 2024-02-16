@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const gravatar = require("gravatar");
+// const gravatar = require("gravatar");
 // const path = require("path");
 // const fs = require("fs/promises");
 const {nanoid} = require("nanoid");
@@ -22,7 +22,8 @@ const signUp = async (req, res) => {
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const avatarURL = gravatar.url(email);
+    // const avatarURL = gravatar.url(email);
+    const avatarURL = 'https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck'
     console.log(avatarURL);
     const verificationToken = nanoid();
 
@@ -158,6 +159,26 @@ const updateUser = async (req, res) => {
         res.json({ name: usr.name, avatarURL: usr.avatarURL });
     }
 };
+
+const subscribe = async(req, res) => {
+    const {_id, email, name} = req.user;
+       
+    const EmailAboutSubscription = {
+        to: email,
+        subject: `Subscription message from ${BASE_URL}`,
+        html: ` <h1 style="font-size: 20px"> Hello, ${name}!</h1>
+                <p  style="font-size: 16px"> You are subscribed to our newsletters. </p>
+                <p  style="font-size: 16px"> You will recieve letters about our news and special offers, etc. </p>
+                <p  style="font-size: 16px"> Thank you! </p>`
+    };
+    
+    await User.findByIdAndUpdate(_id, {subscribe: true});
+      
+    await sendEmail(EmailAboutSubscription);
+
+    res.json( { message: `Subscribtion successful. Letters about subscribtion was sent to your email ${email}` } );
+
+  }
 // const updateAvatar = async(req, res)=> {
 //     const {_id} = req.user;
 //     const {path: tempUpload, originalname} = req.file;
@@ -182,5 +203,6 @@ module.exports = {
     getCurrent: ctrlWrapper(getCurrent),
     logout: ctrlWrapper(logout),
     updateUser: ctrlWrapper(updateUser),
+    subscribe: ctrlWrapper(subscribe),
 
 }
