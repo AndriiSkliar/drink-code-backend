@@ -1,6 +1,6 @@
 const { ctrlWrapper } = require("../../helpers");
 
-const signUp = require("../signUp");
+const signUp = require("./signUp");
 const signIn = require("./signIn");
 const verifyEmail = require("./verifyEmail");
 const resendVerifyEmail = require("./resendVerifyEmail");

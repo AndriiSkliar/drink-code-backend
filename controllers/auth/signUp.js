@@ -3,7 +3,7 @@ const {nanoid} = require("nanoid");
 
 const { User } = require("../../models/user");
 
-const { HttpError, sendEmail } = require("../helpers");
+const { HttpError, sendEmail } = require("../../helpers");
 
 const { BASE_URL } = process.env;
 
