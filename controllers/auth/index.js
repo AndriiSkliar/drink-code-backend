@@ -1,15 +1,24 @@
 const { ctrlWrapper } = require("../../helpers");
 
-const register = require("./register");
-const login = require("./login");
+const signUp = require("../signUp");
+const signIn = require("./signIn");
+const verifyEmail = require("./verifyEmail");
+const resendVerifyEmail = require("./resendVerifyEmail");
 const logout = require("./logout");
 const getCurrent = require("./getCurrent");
-const updateSubscription = require("./updateSubscription");
+const updateUser = require("./updateUser");
+const subscribe= require("./subscribe");
 
 module.exports = {
-  register: ctrlWrapper(register),
-  login: ctrlWrapper(login),
-  logout: ctrlWrapper(logout),
-  getCurrent: ctrlWrapper(getCurrent),
-  updateSubscription: ctrlWrapper(updateSubscription),
-};
+    signUp: ctrlWrapper(signUp),
+    signIn: ctrlWrapper(signIn),
+    verifyEmail: ctrlWrapper(verifyEmail),
+    resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
+
+    logout: ctrlWrapper(logout),
+    getCurrent: ctrlWrapper(getCurrent),
+
+    updateUser: ctrlWrapper(updateUser),
+    subscribe: ctrlWrapper(subscribe),
+
+}
