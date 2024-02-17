@@ -150,43 +150,6 @@ const DrinkSchema = new Schema(
 
 DrinkSchema.post("save", handleMongooseError);
 
-// const addDrinkSchema = Joi.object({
-//   drink: Joi.string().required(),
-//   drinkAlternate: Joi.string().required(),
-//   tags: Joi.string().required(),
-//   video: Joi.string().required(),
-//   category: Joi.string()
-//     .valid(...categoryTypes)
-//     .required(),
-//   IBA: Joi.string().required(),
-//   alcoholic: Joi.string()
-//     .valid(...alcoholicTypes)
-//     .required(),
-//   glass: Joi.string()
-//     .valid(...glassTypes)
-//     .required(),
-//   description: Joi.string().required(),
-//   instructions: Joi.string().required(),
-//   instructionsES: Joi.string().required(),
-//   instructionsDE: Joi.string().required(),
-//   instructionsFR: Joi.string().required(),
-//   instructionsIT: Joi.string().required(),
-//   instructionsRU: Joi.string().required(),
-//   instructionsPL: Joi.string().required(),
-//   instructionsUK: Joi.string().required(),
-//   drinkThumb: Joi.string().required(),
-//   ingredients: Joi.array().items(
-//     Joi.object({
-//       title: Joi.string().required(),
-//       ingredientId: Joi.string().required(),
-//       shortDescription: Joi.string().required(),
-//     })
-//   ),
-// });
-
-// const schemas = {
-//   addDrinkSchema,
-// };
 
 
 
