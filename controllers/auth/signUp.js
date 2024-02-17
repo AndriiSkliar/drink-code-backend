@@ -3,7 +3,7 @@ const {nanoid} = require("nanoid");
 
 const { User } = require("../../models/user");
 
-const { HttpError, sendEmail } = require("../../helpers");
+const { HttpError, sendEmail, fullYearsCount } = require("../../helpers");
 
 const { BASE_URL } = process.env;
 
@@ -17,11 +17,13 @@ const signUp = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
     // const avatarURL = gravatar.url(email);
-    const avatarURL = 'https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck'
-    console.log(avatarURL);
+    const avatarURL = 'https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck';
     const verificationToken = nanoid();
+    console.log(user);
+    const fullYears = await fullYearsCount(req.body.birthday);
+    const isAdult = (fullYears >= 18);
 
-    const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL, verificationToken });
+    const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL, verificationToken, isAdult});
     
     const verifyEmail = {
         to: email,
@@ -37,6 +39,7 @@ const signUp = async (req, res) => {
             "email": newUser.email,
             "avatarURL": newUser.avatarURL,
             "birthday": newUser.birthday,
+            "isAdult": newUser.isAdult,
         }
     })
 

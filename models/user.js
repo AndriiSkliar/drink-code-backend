@@ -29,6 +29,10 @@ const userSchema = new Schema(
       required: [true, "Birthday is required"],
       default: defBirthDate,
     },
+    isAdult: {
+      type: Boolean,
+      default: false,
+    },
     avatarURL: {
       type: String,
     },
