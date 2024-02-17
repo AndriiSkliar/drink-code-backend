@@ -33,7 +33,7 @@ const signIn = async (req, res) => {
             "name": user.name,
             "email": user.email,
             "avatarURL": user.avatarURL,
-            "birthdate": user.birthdate,
+            "birthday": user.birthday,
         }
     })
 }
