@@ -1,10 +1,7 @@
-const { HttpError, controllerWrapper } = require("../../helpers");
-const {
-  Drink,
-  schemas,
-} = require("../models/drink");
-const User  = require("../models/user");
-const { Ingredient } = require("../models/ingredient");
+const { HttpError} = require("../../helpers");
+const Drink = require("../../models/drink");
+const User  = require("../../models/user");
+const { Ingredient } = require("../../models/ingridents");
 
 const path = require("path");
 const fs = require("fs/promises");
@@ -288,5 +285,15 @@ const removeOwnDrink = async (req, res) => {
 
 
 module.exports = {
-    
+  removeOwnDrink,
+  getOwnDrinks,
+  addOwnDrink,
+  removeFavoriteDrink,
+  getFavoriteDrinks,
+  addFavoriteDrink,
+  getPopularDrinks,
+  getSearchDrinks,
+  getDrinkById,
+  getMainPageDrinks 
+
 }
