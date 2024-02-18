@@ -1,55 +1,91 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
+
 const { handleMongooseError } = require("../helpers");
 
 const emailRegexp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
+const defBirthDate = new Date();
+
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+      required: [true, "Set name for user"],
+    },
     password: {
       type: String,
       required: [true, "Set password for user"],
+      minLength: 6,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
-      unique: true,
+      required: [true, "Email is required: example@example.com"],
+      unique: [true, "Email is exists"],
       match: emailRegexp,
     },
-    subscription: {
+    birthday: {
+      type: Date,
+      required: [true, "Birthday is required"],
+      default: defBirthDate,
+    },
+    isAdult: {
+      type: Boolean,
+      default: false,
+    },
+    avatarURL: {
       type: String,
-      enum: ["starter", "pro", "business"],
-      default: "starter",
+    },
+    subscribe: {
+      type: Boolean,
+      default: false,
     },
     token: {
       type: String,
+      default: null,
+    },
+    verificationToken: {
+      type: String,
       default: "",
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    }
   },
-  { versionKey: false, timestamps: true }
+  {
+    versionKey: false,
+    timestamps: true
+  }
 );
 
 userSchema.post("save", handleMongooseError);
 
-const registerSchema = Joi.object({
+const signUpSchema = Joi.object({
+  name: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
-  subscription: Joi.string(),
+  birthday: Joi.date().required(),
 });
 
-const loginSchema = Joi.object({
+const signInSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
 
-const updateSubscriptionSchema = Joi.object({
-  subscription: Joi.string().valid("starter", "pro", "business").required(),
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required()
+});
+
+const updateNameSchema = Joi.object({
+  name: Joi.string().required(),
 });
 
 const schemas = {
-  registerSchema,
-  loginSchema,
-  updateSubscriptionSchema,
+  signUpSchema,
+  signInSchema,
+  updateNameSchema,
+  emailSchema
 };
 
 const User = model("user", userSchema);

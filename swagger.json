@@ -1,0 +1,570 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "1.0.1",
+        "title": "API documentation for project DrinkMaster.",
+        "description": "DrinkMaster API BackEnd",
+        "license": {
+            "name": "MIT",
+            "url": ""
+        }
+    },
+    "consumes": ["application/json", "multipart/form-data"],
+    "produces": ["application/json"],
+    "servers": [{ "url": "http://localhost:3000/" }],
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Authorization endpoints"
+        },
+        {
+            "name": "Users",
+            "description": "Endpoint for requesting information about the user"
+        }
+    ],
+    "paths": {
+        "/api/auth/signup": {
+            "post": {
+            "tags": ["Auth"],
+            "summary": "SignUp new user",
+            "parameters": [],
+            "requestBody": {
+                "description": "# Description of the request parameters:\n**name** - string, user name.\n**email** - string, user email.\n**password** - string, encrypted user password. \n**birthdate** - date, user's date of birth",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                        "$ref": "#/components/schemas/SignUpRequest"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Successful operation",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignUpResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad Request",
+                    "content": {}
+                },
+                "409": {
+                    "description": "Email in use",
+                    "content": {}
+                }
+            }
+            }
+        },
+        "/api/auth/signin": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "SignIn existing user",
+                "parameters": [],
+                "requestBody": {
+                    "description": "# Description of the request parameters:\n**email** - string, user email.\n **password** - string, encrypted user password.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignInRequest"
+                            }
+                        }
+                    }
+                },
+            "responses": {
+                "200": {
+                    "description": "Created session for existing user",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignInResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {"application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "description": "Bad request"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "message": "Bad request"
+                            }
+                        }}
+                },
+                "401": {
+                    "description": "Email or password is wrong",
+                    "content": {"application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "description": "Email or password is wrong"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "message": "Email or password is wrong"
+                            }
+                        }}
+                },
+                "403": {
+                    "description": "Forbidden",
+                    "content": {"application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "description": "Forbidden"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "message": "Forbidden"
+                            }
+                        }}
+                },
+                "404": {
+                    "description": "Not found",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "description": "Not found"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "message": "Not found"
+                            }
+                        }
+                    }
+                }
+            }
+            }
+        },
+        "/auth/signout": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Signs out user",
+                "parameters": [],
+                "description": "**Ендпоінт логауту** - це механізм виходу з системи, який припиняє дію сесії користувача та знищує токен доступу, що був виданий при попередній аутентифікації.\n**Опис:** Коли користувач натискає кнопку вийти з системи, він робить запит на URL/auth/signout з валідним токеном у заголовку Authorization. Сервер перевіряє валідність токена, якщо токен є дійсним, то сесія користувача закривається, токен видаляється і користувач повертається на сторінку входу в систему. Якщо токен не є валідним, то сервер повертає статус 401 і повідомляє про невалідність токена.",
+                "security": [{ "Bearer": [] }],
+                "responses": {
+                "204": {
+                    "description": "User signed out"
+                },
+                "401": {
+                    "description": "Not authorized",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "description": "Description of the error."
+                                    }
+                                }
+                            },
+                            "example": {
+                                "message": "Not authorized."
+                            }
+                        }
+                    }
+                }
+            }
+            }
+        },
+        "/users/current": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Information about the user",
+                "parameters": [],
+                "description": "Information about the user",
+                "security": [{ "Bearer": [] }],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/currentResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Description of the error."
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Not authorized."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/update": {
+            "patch": {
+                "tags": ["Users"],
+                "summary": "Updating user information",
+                "consumes": ["multipart/form-data", "application/json"],
+                "parameters": [],
+                "description": "Updating user information",
+                "security": [{ "Bearer": [] }],
+                "requestBody": {
+                    "description": "# Description of the request parameters:\n**name** - string, user name.",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "in": "formData",
+                                "type": "object",
+                                "properties": {
+                                    "image": {
+                                        "type": "file",
+                                        "format": "binary"
+                                    }  
+                                }
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateUserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Description of the error."
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Not authorized."
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/users/subscribe": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Subscription to information mailing",
+                "parameters": [],
+                "description": "",
+                "security": [{ "Bearer": [] }],
+                "requestBody": {
+                    "description": "# Description of the request parameters:\n**email** - string, user email.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SubscribeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Subscribtion successful. Letters about subscribtion was sent to your email ..."
+                                        }  
+                                    }
+                                },
+                                "example": {
+                                    "message": "Subscribtion successful. Letters about subscribtion was sent to your email ..."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Description of the error."
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "message": "Not authorized."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+        
+    "components": {
+        "schemas": {
+            "SignUpRequest": {
+                "type": "object",
+                "required": ["name", "email", "password", "birthday"],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Anton"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "qwerty123"
+                    },
+                    "birthday": {
+                        "type": "date",
+                        "description": "User's birthdate",
+                        "example": "01.01.2000"
+                    }
+                }
+            },
+            "SignUpResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Username",
+                                "example": "Anton"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "format": "email"
+                            },
+                            "avatarURL": {
+                                "type": "string",
+                                "description": "User's avatarURL",
+                                "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
+                            },
+                            "birthday": {
+                                "type":"date",
+                                "description":"User's birthdate",
+                                "example":"2000-01-01T05:00:00.000Z"
+                            }
+                        } 
+                    }
+                },
+                "example": {
+                    "user": { 
+                        "name": "Anton", 
+                        "email": "user@example.com",  
+                        "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
+                        "birthday": "01.01.2000"
+                    }
+                }
+            },
+            "SignInRequest": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "qwerty123"
+                    }
+                }
+            },
+            "SignInResponse": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "User's token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBhOTM1YWQyNzAxMzg2NzBjYzhhYiIsImlhdCI6MTcwODE3MzY4NSwiZXhwIjoxNzA4MjU2NDg1fQ.VlvFfOaONgtojDztPPMmgxZuHdlxO15oJe1DYe78BgA"
+                    },
+                    "user": {
+                        "name": {
+                            "type": "string",
+                            "description": "User's name",
+                            "example": "Anton"
+                        },
+                        "email": {
+                            "type": "string",
+                            "description": "User's email",
+                            "format": "email"
+                        },
+                        "avatarURL": {
+                            "type": "string",
+                            "description": "User's avatar",
+                            "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
+                        },
+                        "birthday": {
+                                "type":"date",
+                                "description":"User's birthdate",
+                                "example":"2000-01-01T05:00:00.000Z"
+                        }
+                    }
+                },
+                "example": {
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBhOTM1YWQyNzAxMzg2NzBjYzhhYiIsImlhdCI6MTcwODE3MzY4NSwiZXhwIjoxNzA4MjU2NDg1fQ.VlvFfOaONgtojDztPPMmgxZuHdlxO15oJe1DYe78BgA",
+                    "user": {
+                        "name":"Anton",
+                        "email": "user@example.com",
+                        "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
+                        "birthday": "2000-01-01T05:00:00.000Z"
+                    }
+                }
+            },
+            "currentResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "Username",
+                                "example": "Anton"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "format": "email"
+                            },
+                            "avatarURL": {
+                                "type": "string",
+                                "description": "User's avatarURL",
+                                "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
+                            },
+                            "birthday": {
+                                "type":"date",
+                                "description":"User's birthdate",
+                                "example":"2000-01-01T05:00:00.000Z"
+                            }
+                        } 
+                    }
+                },
+                "example": {
+                    "user": { 
+                        "name": "Anton", 
+                        "email": "user@example.com",  
+                        "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
+                        "birthday": "01.01.2000"
+                    }
+                }
+            },
+            "UpdateUserRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Username",
+                        "example": "Anton"
+                    }
+                }
+            },
+            "UpdateUserResponse": {
+                "type": "object",
+                "properties": {
+                    "avatarURL": {
+                        "type": "string",
+                        "description": "User's avatar",
+                        "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Username",
+                        "example": "Anton"
+                    }
+                }
+            },
+            "SubscribeRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
