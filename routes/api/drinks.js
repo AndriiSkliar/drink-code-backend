@@ -1,18 +1,11 @@
 const express = require("express");
-const { getHomePageDrinks } = require('../../controllers/drinks/index');
 
+const ctrl = require("../../controllers/drinks");
 
-// const { validateBody, isValidId, authenticate } = require("../../middlewares/index");
-
-// const { schemas } = require("../../models/drink");
+const { authenticate } = require("../../middlewares/index");
 
 const router = express.Router();
 
-router.get("/mainpage", //authenticate,
- getHomePageDrinks);
-
-
-
-
+router.get("/mainpage", authenticate, ctrl.getHomePageDrinks);
 
 module.exports = router;
