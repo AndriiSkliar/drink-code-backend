@@ -1,4 +1,4 @@
-const { Drink, schemas } = require("../../models/drink"); 
+const { Drink } = require("../../models/drink"); 
 
 const getHomePageDrinks = async (req, res, next) => {
   try {
@@ -8,7 +8,6 @@ const getHomePageDrinks = async (req, res, next) => {
 
     let drinks;
 
-    // !!!Логика выбора коктейлей в зависимости от возраста  как посчитать возраст??
     if (isAdult !== true) {
       drinks = await Drink.find({ alcoholic: "Non alcoholic" }).sort({
         createdAt: -1,  //чтобы отображались последние добавленные
