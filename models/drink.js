@@ -1,53 +1,196 @@
 const { Schema, model } = require("mongoose");
-const Joi = require("joi");
 const { handleMongooseError } = require("../helpers");
+const Joi = require("joi");
 
 const drinkSchema = new Schema(
   {
-    name: {
+    drink: {
       type: String,
-      required: [true, "Set name for contact"],
+      required: [true, "Set name for drink"],
     },
-    email: {
+    drinkAlternate: {
       type: String,
+      default: "Sorry, not specified",
     },
-    phone: {
+    tags: String,
+    video: String,
+    category: {
       type: String,
+      required: [true, "Choose category for a drink"],
+      enum: [
+        "Ordinary Drink",
+        "Cocktail",
+        "Shake",
+        "Other/Unknown",
+        "Cocoa",
+        "Shot",
+        "Coffee / Tea",
+        "Homemade Liqueur",
+        "Punch / Party Drink",
+        "Beer",
+        "Soft Drink",
+      ],
     },
-    favorite: {
-      type: Boolean,
-      default: false,
+    IBA: String,
+    alcoholic: {
+      type: String,
+      required: true,
+      enum: ["Alcoholic", "Non alcoholic"],
     },
+    glass: {
+      type: String,
+      required: [true, "Choose glass for a drink"],
+      enum: [
+        "Highball glass",
+        "Cocktail glass",
+        "Old-fashioned glass",
+        "Whiskey Glass",
+        "Collins glass",
+        "Pousse cafe glass",
+        "Champagne flute",
+        "Whiskey sour glass",
+        "Cordial glass",
+        "Brandy snifter",
+        "White wine glass",
+        "Nick and Nora Glass",
+        "Hurricane glass",
+        "Coffee mug",
+        "Shot glass",
+        "Jar",
+        "Irish coffee cup",
+        "Punch bowl",
+        "Pitcher",
+        "Pint glass",
+        "Copper Mug",
+        "Wine Glass",
+        "Beer mug",
+        "Margarita/Coupette glass",
+        "Beer pilsner",
+        "Beer Glass",
+        "Parfait glass",
+        "Mason jar",
+        "Margarita glass",
+        "Martini Glass",
+        "Balloon Glass",
+        "Coupe Glass",
+      ],
+    },
+    description: String,
+    instructions: String,
+    instructionsES: String,
+    instructionsDE: String,
+    instructionsFR: String,
+    instructionsIT: String,
+    instructionsRU: String,
+    instructionsPL: String,
+    instructionsUK: String,
+    drinkThumb: String,
+    ingredients: [
+      {
+        title: String,
+        measure: String,
+        ingredientId: {
+          type: Schema.Types.ObjectId,
+          ref: "ingredient",
+        },
+      },
+    ],
+    shortDescription: String,
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-      required: true,
     },
+    users: [String],
   },
   { versionKey: false, timestamps: true }
 );
 
 drinkSchema.post("save", handleMongooseError);
 
-const addSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.string().required(),
-  favorite: Joi.boolean(),
-});
+const Drink = model("recipes", drinkSchema);
 
-const updateFavoriteSchema = Joi.object({
-  favorite: Joi.boolean().required(),
+const addDrinkSchema = Joi.object({
+  drink: Joi.string().required().messages({
+    "any.required": "Missing drink name field",
+    "string.base": "The drink must be a string",
+  }),
+  description: Joi.string(),
+  category: Joi.string()
+    .valid(
+      "Ordinary Drink",
+      "Cocktail",
+      "Shake",
+      "Other/Unknown",
+      "Cocoa",
+      "Shot",
+      "Coffee / Tea",
+      "Homemade Liqueur",
+      "Punch / Party Drink",
+      "Beer",
+      "Soft Drink"
+    )
+    .required()
+    .messages({
+      "any.required": "The category field is required",
+    }),
+  alcoholic: Joi.string()
+    .valid("Alcoholic", "Non alcoholic")
+    .required()
+    .messages({
+      "any.required": `missing required field 'alcoholic' of recipes`,
+    }),
+  glass: Joi.string()
+    .valid(
+      "Highball glass",
+      "Cocktail glass",
+      "Old-fashioned glass",
+      "Whiskey Glass",
+      "Collins glass",
+      "Pousse cafe glass",
+      "Champagne flute",
+      "Whiskey sour glass",
+      "Cordial glass",
+      "Brandy snifter",
+      "White wine glass",
+      "Nick and Nora Glass",
+      "Hurricane glass",
+      "Coffee mug",
+      "Shot glass",
+      "Jar",
+      "Irish coffee cup",
+      "Punch bowl",
+      "Pitcher",
+      "Pint glass",
+      "Copper Mug",
+      "Wine Glass",
+      "Beer mug",
+      "Margarita / Coupette glass",
+      "Beer pilsner",
+      "Beer Glass",
+      "Parfait glass",
+      "Mason jar",
+      "Margarita glass",
+      "Martini Glass",
+      "Balloon Glass",
+      "Coupe Glass"
+    )
+    .required()
+    .messages({
+      "any.required": "The glass field is required",
+    }),
+  ingredients: Joi.array().items(
+    Joi.object({
+      measure: Joi.string(),
+      title: Joi.string(),
+    })
+      .required()
+      .messages({ "any.required": "The ingredients field is required" })
+  ),
+  instructions: Joi.string(),
 });
 
 const schemas = {
-  addSchema,
-  updateFavoriteSchema,
+  addDrinkSchema,
 };
 
-const Drink = model("recipe", drinkSchema);
-
-module.exports = {
-  Drink,
-  schemas,
-};
+module.exports = { Drink, schemas };
