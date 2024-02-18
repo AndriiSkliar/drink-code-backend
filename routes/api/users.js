@@ -1,11 +1,12 @@
-const express = require('express');
-const ctrl = require('../../controllers/auth');
-const {authenticate}  = require("../../middlewares");
+const express = require("express");
+const ctrl = require("../../controllers/auth");
+const { authenticate } = require("../../middlewares");
 
 const router = express.Router();
 
-router.patch('/update', authenticate, ctrl.updateUser);                             
-router.get('/current', authenticate, ctrl.getCurrent);     
-router.post('/subscribe',authenticate, ctrl.subscribe);                        
-   
+router.patch("/update", authenticate, ctrl.updateUser);
+router.get("/current", authenticate, ctrl.getCurrent);
+router.post("/subscribe", authenticate, ctrl.subscribe);
+router.get("/favorites", authenticate, ctrl.getFavorites);
+
 module.exports = router;
