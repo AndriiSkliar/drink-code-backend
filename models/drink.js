@@ -5,6 +5,7 @@ const Joi = require("joi");
 const drinkSchema = new Schema(
   {
     drink: {
+      // required field
       type: String,
       required: [true, "Set name for drink"],
     },
@@ -12,9 +13,16 @@ const drinkSchema = new Schema(
       type: String,
       default: "Sorry, not specified",
     },
-    tags: String,
-    video: String,
+    tags: {
+      type: String,
+      default: "Sorry, not specified",
+    },
+    video: {
+      type: String,
+      default: "Sorry, not specified",
+    },
     category: {
+      // required field
       type: String,
       required: [true, "Choose category for a drink"],
       enum: [
@@ -31,8 +39,9 @@ const drinkSchema = new Schema(
         "Soft Drink",
       ],
     },
-    IBA: String,
+    IBA: { type: String, default: "Sorry, not specified" },
     alcoholic: {
+      // required field
       type: String,
       required: true,
       enum: ["Alcoholic", "Non alcoholic"],
@@ -75,16 +84,48 @@ const drinkSchema = new Schema(
         "Coupe Glass",
       ],
     },
-    description: String,
-    instructions: String,
-    instructionsES: String,
-    instructionsDE: String,
-    instructionsFR: String,
-    instructionsIT: String,
-    instructionsRU: String,
-    instructionsPL: String,
-    instructionsUK: String,
-    drinkThumb: String,
+    description: {
+      // required field
+      type: String,
+      required: [true],
+    },
+    instruction: {
+      // required field
+      type: String,
+      required: [true],
+    },
+    instructionsES: {
+      type: String,
+      default: "none",
+    },
+    instructionsDE: {
+      type: String,
+      default: "none",
+    },
+    instructionsFR: {
+      type: String,
+      default: "none",
+    },
+    instructionsIT: {
+      type: String,
+      default: "none",
+    },
+    instructionsRU: {
+      type: String,
+      default: "none",
+    },
+    instructionsPL: {
+      type: String,
+      default: "none",
+    },
+    instructionsUK: {
+      type: String,
+      default: "none",
+    },
+    drinkThumb: {
+      type: String,
+      default: null,
+    },
     ingredients: [
       {
         title: String,
@@ -100,7 +141,10 @@ const drinkSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
-    users: [String],
+    favorite: {
+      type: [String],
+      default: [],
+    },
   },
   { versionKey: false, timestamps: true }
 );
