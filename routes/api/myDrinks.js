@@ -4,7 +4,7 @@ const ctrl = require("../../controllers/myDrinks");
 
 const router = express.Router();
 
-router.get("/drinks/own", authenticate, ctrl.getOwn);
+router.get("/own", authenticate, ctrl.getOwn);
 
 router.delete("/own/remove/", authenticate, isValidId, ctrl.deleteOwn);
 

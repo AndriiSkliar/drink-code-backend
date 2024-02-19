@@ -1,4 +1,4 @@
-const Drink = require("../../models/drink");
+const { Drink } = require("../../models/drink");
 
 const getOwn = async (req, res) => {
   const { _id: owner } = req.user;
@@ -10,7 +10,7 @@ const getOwn = async (req, res) => {
     .skip(skip)
     .limit(limit);
 
-  const totalOwnDrinks = await Drink.countDocuments({ owner });
+  const totalOwnDrinks = await Drink.count({ owner });
 
   res.json({ total: totalOwnDrinks, drinks: result });
 };

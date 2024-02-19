@@ -1,5 +1,5 @@
 const HttpError = require("../../helpers");
-const Drink = require("../../models/drink");
+const { Drink } = require("../../models/drink");
 
 const deleteOwn = async (req, res) => {
   const { id } = req.params;
