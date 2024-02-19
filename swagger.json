@@ -6,12 +6,12 @@
         "description": "DrinkMaster API BackEnd",
         "license": {
             "name": "MIT",
-            "url": ""
+            "url": "https://opensource.org/licenses/MIT"
         }
     },
     "consumes": ["application/json", "multipart/form-data"],
     "produces": ["application/json"],
-    "servers": [{ "url": "http://localhost:3000/" }],
+    "servers": [{ "url": "http://localhost:3000/" }, { "url": "https://drink-code-backend.onrender.com" }],
     "tags": [
         {
             "name": "Auth",
@@ -20,6 +20,10 @@
         {
             "name": "Users",
             "description": "Endpoint for requesting information about the user"
+        },
+         {
+            "name": "Drinks",
+            "description": "Endpoint for requesting information about drinks"
         }
     ],
     "paths": {
@@ -352,6 +356,36 @@
                     }
                 }
             }
+        },
+        "/api/drinks/{drinkId}": {
+            "get": {
+            "tags": ["Drinks"],
+            "summary": "Information about drink",
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "type": "string",
+                "description": "Drink's Id"
+            }],
+            "security":[{"Bearer": [] }],
+            "responses": {
+                "200": {
+                    "description": "Information about drink",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DrinkInfoResponse"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Is not valid id",
+                    "content": {}
+                }
+            }
+            }
         }
     },
         
@@ -549,6 +583,37 @@
                         "description": "User's email",
                         "format": "email"
                     }
+                }
+            },
+            "DrinkInfoResponse": {
+                "type": "object",
+                "properties": {
+                    "drink": {
+                        "type": "object",
+                        "properties": {
+                            "drinkId": {
+                                "type": "string",
+                                "description": "Drink's Id",
+                                "example": "639b6de9ff77d221f190c56"
+                            }
+                        } 
+                    }
+                },
+                "example": {
+                    "drink": {
+                                "id": "639b6de9ff77d221f190c56",
+                                "drink": "Danbooka",
+                                "alcoholic": "Alcoholic",
+                                "glass": "Coffee Mug",
+                                "description": "Danbooka is a unique and flavorful cocktail that combines the richness of bourbon with the sweetness of apricot brandy and the tartness of lemon juice. It is made by shaking bourbon, apricot brandy, lemon juice, and simple syrup together with ice. The result is a complex and satisfying drink with a perfect balance of flavors. Sit back and savor the distinctive taste of Danbooka.",
+                                "instructions": "pour it in and mix it.",
+                                "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Danbooka.jpg",
+                                "ingredients": [{"title":"Coffee"}, {"measure":"3 parts "}, {"ingredientId":"64aebb7f82d96cc69e0eb4e7"}  
+                            ]
+                                
+
+                                
+                            }
                 }
             }
         },
