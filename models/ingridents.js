@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 
-
 const ingredientSchema = new Schema(
   {
     title: {
@@ -46,13 +45,11 @@ const ingredientSchema = new Schema(
       required: true,
     },
   },
-  { versionKey: false,
-    timestamps: true, }
+  { versionKey: false, timestamps: true }
 );
 
 ingredientSchema.post("save", handleMongooseError);
 
-const Ingredient = model("ingredients", ingredientSchema);
+const Ingredient = model("ingredient", ingredientSchema);
 
-
-module.exports = {Ingredient,};
+module.exports = { Ingredient };
