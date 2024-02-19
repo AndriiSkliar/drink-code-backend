@@ -1,5 +1,4 @@
-// const { HttpError} = require("../../helpers");
-const {Drink} = require("../../models/drink");
+const { Drink } = require("../../models/drink");
 // const path = require("path");
 // const fs = require("fs/promises");
 // const categoriesPath = path.join(__dirname, "../", "db/categories/", "categories.json");
@@ -28,18 +27,26 @@ const {Drink} = require("../../models/drink");
 //       totalDrinks: totalCount,
 //       mainPageDrinks: drinks});
 //   };
-async function getDrinks(req, res, next) {
-    const {isAdult} = req.user;
-    console.log(isAdult)
-    try {
-  
+async function getAllDrinks(req, res, next) {
+  const { isAdult } = req.user;
+  const noAlc = "Non alcoholic";
+ 
+  try {
+    if (!isAdult) {
       const drinks = await Drink.find({});
-        
-      res.json(drinks);
-    } catch (error) {
-      next(error);
+      const drinksFilter = await drinks.filter((drink) =>
+        drink.alcoholic.includes(noAlc)
+      );
+      res.json(drinksFilter);
     }
+    if (isAdult) {
+      const drinks = await Drink.find({});
+
+      res.json(drinks);
+    }
+  } catch (error) {
+    next(error);
   }
+}
 
-
-module.exports = { getDrinks }
+module.exports = { getAllDrinks };
