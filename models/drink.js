@@ -2,10 +2,6 @@ const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 const drinkSchema = new Schema(
   {
     drink: {
@@ -95,11 +91,7 @@ const drinkSchema = new Schema(
         measure: String,
         ingredientId: {
           type: Schema.Types.ObjectId,
-<<<<<<< HEAD
           ref: "ingredient",
-=======
-          ref: "ingredients",
->>>>>>> master
         },
       },
     ],
@@ -141,7 +133,7 @@ const addDrinkSchema = Joi.object({
     .messages({
       "any.required": "The category field is required",
     }),
-    alcoholic: Joi.string()
+  alcoholic: Joi.string()
     .valid("Alcoholic", "Non alcoholic")
     .required()
     .messages({
