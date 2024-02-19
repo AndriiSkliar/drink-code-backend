@@ -51,11 +51,11 @@ const userSchema = new Schema(
     verify: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   {
     versionKey: false,
-    timestamps: true
+    timestamps: true,
   }
 );
 
@@ -74,7 +74,7 @@ const signInSchema = Joi.object({
 });
 
 const emailSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required()
+  email: Joi.string().pattern(emailRegexp).required(),
 });
 
 const updateNameSchema = Joi.object({
@@ -85,7 +85,7 @@ const schemas = {
   signUpSchema,
   signInSchema,
   updateNameSchema,
-  emailSchema
+  emailSchema,
 };
 
 const User = model("user", userSchema);

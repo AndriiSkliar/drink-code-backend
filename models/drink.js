@@ -2,7 +2,6 @@ const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
-
 const drinkSchema = new Schema(
   {
     drink: {
@@ -92,7 +91,7 @@ const drinkSchema = new Schema(
         measure: String,
         ingredientId: {
           type: Schema.Types.ObjectId,
-          ref: "ingredients",
+          ref: "ingredient",
         },
       },
     ],
@@ -109,7 +108,6 @@ const drinkSchema = new Schema(
 drinkSchema.post("save", handleMongooseError);
 
 const Drink = model("recipes", drinkSchema);
-
 
 const addDrinkSchema = Joi.object({
   drink: Joi.string().required().messages({
@@ -135,7 +133,7 @@ const addDrinkSchema = Joi.object({
     .messages({
       "any.required": "The category field is required",
     }),
-    alcoholic: Joi.string()
+  alcoholic: Joi.string()
     .valid("Alcoholic", "Non alcoholic")
     .required()
     .messages({
@@ -190,7 +188,6 @@ const addDrinkSchema = Joi.object({
   ),
   instructions: Joi.string(),
 });
-
 
 const schemas = {
   addDrinkSchema,
