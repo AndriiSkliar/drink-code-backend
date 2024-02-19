@@ -9,7 +9,6 @@ const swaggerDocument = require("./swagger.json");
 
 const usersRouter = require("./routes/api/users");
 const authRouter = require("./routes/api/auth");
-const drinksRouter = require("./routes/api/drinks");
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
@@ -23,7 +22,7 @@ app.use("/api/drinks", drinksRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/drinks", drinksRouter);
+
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
