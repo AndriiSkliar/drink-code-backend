@@ -1,31 +1,25 @@
 const { HttpError, controllerWrapper } = require("../../helpers");
-const {
-  Drink,
-  schemas,
-} = require("../models/drink");
-const User  = require("../models/user");
+const { Drink, schemas } = require("../models/drink");
+const User = require("../models/user");
 const { Ingredient } = require("../models/ingredient");
 
 const path = require("path");
 const fs = require("fs/promises");
 const categoriesPath = path.join(__dirname, "../", "db", "categories.json");
 
+// const getDrinkById = async (req, res) => {
+//   const { id } = req.params;
+//   const drinkById = await Drink.findById(id);
 
+//   if (!drinkById) {
+//     throw HttpError(404, "Not Found");
+//   }
 
-const getDrinkById = async (req, res) => {
-  const { id } = req.params;
-  const drinkById = await Drink.findById(id);
-
-  if (!drinkById) {
-    throw HttpError(404, "Not Found");
-  }
-
-  res.json(drinkById);
-};
-
+//   res.json(drinkById);
+// };
 
 const getMainPageDrinks = async (req, res) => {
-  const {isAdult} = req.user;
+  const { isAdult } = req.user;
   const drinks = {};
   const categories = await fs.readFile(categoriesPath);
   const parsedCategories = JSON.parse(categories);
@@ -38,16 +32,15 @@ const getMainPageDrinks = async (req, res) => {
             alcoholic: "Non alcoholic",
           }
         : { category }
-    )
-      .sort({ createdAt: -1 })
+    ).sort({ createdAt: -1 });
   }
   res.json({
     code: 200,
-    message: 'Success operation',
+    message: "Success operation",
     totalDrinks: totalCount,
-    mainPageDrinks: drinks});
+    mainPageDrinks: drinks,
+  });
 };
-
 
 const getSearchDrinks = async (req, res) => {
   const { category, ingredient, query, page = 1, limit = 10 } = req.query;
@@ -71,28 +64,30 @@ const getSearchDrinks = async (req, res) => {
 
   const resultCount = await Drink.countDocuments(paramSearch);
 
-  const drinks = await Drink.find(paramSearch, { drink: 1, drinkThumb: 1, category: 1, alcoholic: 1, popularity: 1 }, { skip, limit }).sort(
-    { popularity: -1 });
+  const drinks = await Drink.find(
+    paramSearch,
+    { drink: 1, drinkThumb: 1, category: 1, alcoholic: 1, popularity: 1 },
+    { skip, limit }
+  ).sort({ popularity: -1 });
 
   if (!resultCount || !drinks.length) {
     throw HttpError(404, "Not Found");
   }
 
   res.status(200).json({
-      code: 200,
-      message: 'Success operation',
-      quantityTotal: resultCount,
-      data: drinks,
+    code: 200,
+    message: "Success operation",
+    quantityTotal: resultCount,
+    data: drinks,
   });
-}
-
+};
 
 const getPopularDrinks = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
   const condition = !req.user.isAdult
-  ? "Non alcoholic"
-  : /^(?:Alcoholic\b|Non alcoholic\b)/;
+    ? "Non alcoholic"
+    : /^(?:Alcoholic\b|Non alcoholic\b)/;
 
   const result = await Drink.aggregate([
     {
@@ -107,45 +102,41 @@ const getPopularDrinks = async (req, res) => {
       },
     },
     {
-      $sort: { popularity: -1 }, 
+      $sort: { popularity: -1 },
     },
-  ]).match({ alcoholic: condition })
+  ])
+    .match({ alcoholic: condition })
     .skip(skip)
     .limit(limit);
 
   res.json(result);
 };
 
-
 const addFavoriteDrink = async (req, res) => {
-const { id } = req.params;
-const { _id: userId } = req.user;
-const drink = await Drink.findById(id);
-if (!drink) {
-  throw HttpError(404, "Not Found");
-}
-if (!drink.users) {
-  drink.users = [];
-}
-const isFavorite = drink.users.includes(userId);
-let result;
-if (isFavorite) {
-  throw HttpError(409, `${drink.drink} is already in your favorites.`);
-} else {
-  result = await Drink.findByIdAndUpdate(
-    drink._id,
-    { $push: { users: userId } },
-    { new: true }
-  );
+  const { id } = req.params;
+  const { _id: userId } = req.user;
+  const drink = await Drink.findById(id);
+  if (!drink) {
+    throw HttpError(404, "Not Found");
+  }
+  if (!drink.users) {
+    drink.users = [];
+  }
+  const isFavorite = drink.users.includes(userId);
+  let result;
+  if (isFavorite) {
+    throw HttpError(409, `${drink.drink} is already in your favorites.`);
+  } else {
+    result = await Drink.findByIdAndUpdate(
+      drink._id,
+      { $push: { users: userId } },
+      { new: true }
+    );
 
-  await User.findByIdAndUpdate(
-    userId,
-    { $inc: { userFavorite: 1 } }
-  );
-}
-res.json({ result });};
-
-
+    await User.findByIdAndUpdate(userId, { $inc: { userFavorite: 1 } });
+  }
+  res.json({ result });
+};
 
 const getFavoriteDrinks = async (req, res) => {
   const { _id: userId } = req.user;
@@ -158,7 +149,8 @@ const getFavoriteDrinks = async (req, res) => {
         $eq: userId,
       },
     },
-  }).sort({ createdAt: -1 })
+  })
+    .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit);
 
@@ -202,7 +194,6 @@ const removeFavoriteDrink = async (req, res) => {
   res.json({ result });
 };
 
-
 const addOwnDrink = async (req, res) => {
   const { _id: owner } = req.user;
   const ingredients = JSON.parse(req.body.ingredients);
@@ -241,15 +232,10 @@ const addOwnDrink = async (req, res) => {
   // const { error } = schemas.addDrinkSchema.validate(drinkDB);
   // if (error) throw HttpError(400, error.message);
 
-
-
   const drink = await Drink.create(drinkDB);
 
   res.status(201).json(drink);
 };
-
-
-
 
 const getOwnDrinks = async (req, res) => {
   const { _id: owner } = req.user;
@@ -265,7 +251,6 @@ const getOwnDrinks = async (req, res) => {
 
   res.json({ total: totalOwnDrinks, drinks: result });
 };
-
 
 const removeOwnDrink = async (req, res) => {
   const { id } = req.params;
@@ -286,7 +271,4 @@ const removeOwnDrink = async (req, res) => {
   res.json({ result: removedDrink });
 };
 
-
-module.exports = {
-    
-}
+module.exports = {};

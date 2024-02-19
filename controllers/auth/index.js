@@ -6,19 +6,20 @@ const verifyEmail = require("./verifyEmail");
 const resendVerifyEmail = require("./resendVerifyEmail");
 const logout = require("./logout");
 const getCurrent = require("./getCurrent");
+const getFavorites = require("./getFavorites");
 const updateUser = require("./updateUser");
-const subscribe= require("./subscribe");
+const subscribe = require("./subscribe");
 
 module.exports = {
-    signUp: ctrlWrapper(signUp),
-    signIn: ctrlWrapper(signIn),
-    verifyEmail: ctrlWrapper(verifyEmail),
-    resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
+  signUp: ctrlWrapper(signUp),
+  signIn: ctrlWrapper(signIn),
+  verifyEmail: ctrlWrapper(verifyEmail),
+  resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
 
-    logout: ctrlWrapper(logout),
-    getCurrent: ctrlWrapper(getCurrent),
+  logout: ctrlWrapper(logout),
+  getCurrent: ctrlWrapper(getCurrent),
+  getFavorites: ctrlWrapper(getFavorites),
 
-    updateUser: ctrlWrapper(updateUser),
-    subscribe: ctrlWrapper(subscribe),
-
-}
+  updateUser: ctrlWrapper(updateUser),
+  subscribe: ctrlWrapper(subscribe),
+};
