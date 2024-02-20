@@ -29,7 +29,7 @@ router.get("/search/ingredients", authenticate, filter.getDrinksByIngredient);
 router.get("/:id", authenticate, isValidId, ctrl.getById);
 
 // POST/own/ add Додавання власного коктейлю
-router.post("/own", jsonParser, addDrink);
+router.post("/own/add", jsonParser, addDrink);
 
 // DELETE/own/remove Видалення власного коктейлю
 // GET/own Отримання власних коктейлів
