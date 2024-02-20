@@ -25,9 +25,6 @@ router.get("/search", authenticate, filter.getDrinks);
 router.get("/search/category", authenticate, filter.getDrinksByCategory);
 router.get("/search/ingredients", authenticate, filter.getDrinksByIngredient);
 
-// GET/:id Отримання одного коктейлю за ID
-router.get("/:id", authenticate, isValidId, ctrl.getById);
-
 // POST/own/ add Додавання власного коктейлю
 router.post("/own/add", jsonParser, addDrink);
 
@@ -36,5 +33,8 @@ router.post("/own/add", jsonParser, addDrink);
 // POST/favorite/add/ Додавання коктейлю до обраних
 // DELETE/favorite/remove/ Видалення коктейлю з обраних
 // GET/favorite Отримання коктейлів з обраних
+
+// GET/:id Отримання одного коктейлю за ID
+router.get("/:id", authenticate, isValidId, ctrl.getById);
 
 module.exports = router;

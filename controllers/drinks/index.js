@@ -7,17 +7,6 @@ const path = require("path");
 const fs = require("fs/promises");
 const categoriesPath = path.join(__dirname, "../", "db", "categories.json");
 
-// const getDrinkById = async (req, res) => {
-//   const { id } = req.params;
-//   const drinkById = await Drink.findById(id);
-
-//   if (!drinkById) {
-//     throw HttpError(404, "Not Found");
-//   }
-
-//   res.json(drinkById);
-// };
-
 const getMainPageDrinks = async (req, res) => {
   const { isAdult } = req.user;
   const drinks = {};
