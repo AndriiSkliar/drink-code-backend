@@ -241,4 +241,45 @@ const drinkJoiSchema = Joi.object({
   instruction: Joi.string(),
 });
 
-module.exports = { Drink, drinkJoiSchema };
+const searchDrinkSchema = Joi.object({
+  letter: Joi.string()
+  .min(1)
+  .max(20)
+  .required()
+  .messages({
+    'any.required': 'For search drinks, you must enter one letter to words with the length 20 characters',
+  }),
+});
+
+
+const searchByCategorySchema = Joi.object({
+  category: Joi.string()
+  .valid(
+    'Ordinary Drink',
+    'Cocktail',
+    'Shake',
+    'Other/Unknown',
+    'Cocoa',
+    'Shot',
+    'Coffee / Tea',
+    'Homemade Liqueur',
+    'Punch / Party Drink',
+    'Beer',
+    'Soft Drink'
+  )
+  .required()
+  .messages({
+    'any.required': 'The category field is required',
+  }),
+});
+
+const searchByIngridientsSchema = Joi.object({
+  searchIngredient: Joi.string()
+  .min(1)
+  .max(20)
+  .required()
+  .messages({
+    'any.required': 'For search drinks, you must choose one of the following ingredients:',
+  }),
+});
+module.exports = { Drink, drinkJoiSchema, searchByCategorySchema, searchDrinkSchema, searchByIngridientsSchema};

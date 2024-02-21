@@ -430,7 +430,211 @@
           }
         }
       }
-    }
+    },
+    "/api/drinks/search": {
+      "get": {
+        "tags": ["Drinks"],
+        "summary": "Search drink by letter/word",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "# Description of the request parameters:\n**letter** - string (from 1 to 20 characters).",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrinkInfoResponse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrinkInfoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Not authorized."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Is not valid input text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Entering text is not valid."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/drinks/search/category": {
+      "get": {
+        "tags": ["Drinks"],
+        "summary": "Search drink by category",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "# Description of the request parameters:\n**category** - string.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrinkInfoResponse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrinkInfoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Not authorized."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Is not valid choose category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Category is not valid."
+                }
+              }
+            }
+          }
+        }
+      } 
+    },
+    "/api/drinks/ingredients": {
+      "get": {
+        "tags": ["Drinks"],
+        "summary": "Search drink by ingredients",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "# Description of the request parameters:\n**ingredients** - string.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrinkInfoResponse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrinkInfoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Not authorized."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Is not valid ingredients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Ingredient is not valid."
+                }
+              }
+            }
+          }
+        }
+      } 
+    } 
   },
 
   "components": {
@@ -672,21 +876,189 @@
             }
           ]
         }
-      }
-    },
-    "securitySchemes": {
+      },
+      "SerchDrinkByLetterResponse": {
+        "type": "object",
+        "properties": {
+          "drink": {
+            "type": "object",
+            "properties": {
+              "drinkId": {
+                "type": "string",
+                "description": "Drink's letter",
+                "example": "J, ju, jui, juice"
+              }
+            }
+          }
+        },
+        "example": {
+          "_id": "639b6de9ff77d221f190c563",
+          "drink": "Just a Moonmint",
+          "drinkAlternate": "Sorry, not specified",
+          "tags": "Sorry, not specified",
+          "video": "Sorry, not specified",
+          "category": "Shake",
+          "IBA": "Sorry, not specified",
+          "alcoholic": "Non alcoholic",
+          "glass": "Highball Glass",
+          "description": "Just a Moonmint is a refreshing and minty cocktail that combines the flavors of vodka, lime juice, and mint syrup. It is made by shaking vodka, lime juice, mint syrup, and ice together and straining it into a glass. The result is a crisp and invigorating drink with a hint of sweetness from the mint syrup. Sip on this cocktail and let the coolness of the mint refresh your palate.",
+          "instructions": "Place all ingredients in the blender jar - cover and whiz on medium speed until well blended. Pour in one tall, 2 medium or 3 small glasses and drink up.",
+          "instructionsES": "Coloque todos los ingredientes en el vaso de la licuadora, tape y mezcle a velocidad media hasta que estén bien mezclados. Vierta en un vaso alto, 2 medianos o 3 pequeños y beba.",
+          "instructionsDE": "Alle Zutaten in den Mixer geben - abdecken und bei mittlerer Geschwindigkeit schaumig schlagen, bis sie gut vermischt sind. In ein großes, 2 mittlere oder 3 kleine Gläser füllen und geniessen.",
+          "instructionsFR": "Placer tous les ingrédients dans le bol du mélangeur - couvrir et fouetter à vitesse moyenne jusqu'à ce que le tout soit bien mélangé. Verser dans un grand, 2 moyens ou 3 petits verres et boire.",
+          "instructionsIT": "Mettere tutti gli ingredienti nella caraffa del frullatore - coprire e montare a velocità media fino a quando non sono ben amalgamati.Versare in un bicchiere alto, 2 medi o 3 piccoli e bere.",
+          "instructionsRU": "Поместите все ингредиенты в чашу блендера, накройте крышкой и взбивайте на средней скорости, пока они хорошо не перемешаются. Налейте в один высокий, 2 средних или 3 маленьких стакана и выпейте.",
+          "instructionsPL": "Umieść wszystkie składniki w dzbanku blendera - przykryj i ubijaj na średnich obrotach, aż dobrze się połączą. Wlej jedną dużą, 2 średnie lub 3 małe szklanki i wypij.",
+          "instructionsUK": "Помістіть  інгредієнти в ємність блендера, накрийте кришкою та збийте на середній швидкості, поки добре не змішаються. Налийте в одну високу, 2 середні або 3 маленькі склянки і випийте.",
+          "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Just_a_Moonmint.jpg",
+          "ingredients": [
+            {
+                "_id": "65d65b0deb0de643eca5775c",
+                "title": "Milk",
+                "measure": "2 cups",
+                "ingredientId": "64aebb7f82d96cc69e0eb4d5"
+            },
+            {
+                "_id": "65d65b0deb0de643eca5775d",
+                "title": "Chocolate syrup",
+                "ingredientId": "64aebb7f82d96cc69e0eb4d7"
+            },
+            {
+                "_id": "65d65b0deb0de643eca5775e",
+                "title": "Mint syrup",
+                "ingredientId": "64f1d5c269d8333cf130fb61"
+            }
+          ],
+          "shortDescription": "A refreshing and minty cocktail with vodka, lime juice, and mint syrup."
+        }
+      },
+      "SerchDrinkByCategoryResponse": {
+        "type": "object",
+        "properties": {
+          "drink": {
+            "type": "object",
+            "properties": {
+              "drinkId": {
+                "type": "string",
+                "description": "All drinks from the selected category",
+                "example": "Ordinary drink"
+              }
+            }
+          } 
+        },
+        "example": {
+          "_id": "639b6de9ff77d221f190c563",
+        "drink": "Just a Moonmint",
+        "drinkAlternate": "Sorry, not specified",
+        "tags": "Sorry, not specified",
+        "video": "Sorry, not specified",
+        "category": "Shake",
+        "IBA": "Sorry, not specified",
+        "alcoholic": "Non alcoholic",
+        "glass": "Highball Glass",
+        "description": "Just a Moonmint is a refreshing and minty cocktail that combines the flavors of vodka, lime juice, and mint syrup. It is made by shaking vodka, lime juice, mint syrup, and ice together and straining it into a glass. The result is a crisp and invigorating drink with a hint of sweetness from the mint syrup. Sip on this cocktail and let the coolness of the mint refresh your palate.",
+        "instructions": "Place all ingredients in the blender jar - cover and whiz on medium speed until well blended. Pour in one tall, 2 medium or 3 small glasses and drink up.",
+        "instructionsES": "Coloque todos los ingredientes en el vaso de la licuadora, tape y mezcle a velocidad media hasta que estén bien mezclados. Vierta en un vaso alto, 2 medianos o 3 pequeños y beba.",
+        "instructionsDE": "Alle Zutaten in den Mixer geben - abdecken und bei mittlerer Geschwindigkeit schaumig schlagen, bis sie gut vermischt sind. In ein großes, 2 mittlere oder 3 kleine Gläser füllen und geniessen.",
+        "instructionsFR": "Placer tous les ingrédients dans le bol du mélangeur - couvrir et fouetter à vitesse moyenne jusqu'à ce que le tout soit bien mélangé. Verser dans un grand, 2 moyens ou 3 petits verres et boire.",
+        "instructionsIT": "Mettere tutti gli ingredienti nella caraffa del frullatore - coprire e montare a velocità media fino a quando non sono ben amalgamati.Versare in un bicchiere alto, 2 medi o 3 piccoli e bere.",
+        "instructionsRU": "Поместите все ингредиенты в чашу блендера, накройте крышкой и взбивайте на средней скорости, пока они хорошо не перемешаются. Налейте в один высокий, 2 средних или 3 маленьких стакана и выпейте.",
+        "instructionsPL": "Umieść wszystkie składniki w dzbanku blendera - przykryj i ubijaj na średnich obrotach, aż dobrze się połączą. Wlej jedną dużą, 2 średnie lub 3 małe szklanki i wypij.",
+        "instructionsUK": "Помістіть  інгредієнти в ємність блендера, накрийте кришкою та збийте на середній швидкості, поки добре не змішаються. Налийте в одну високу, 2 середні або 3 маленькі склянки і випийте.",
+        "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Just_a_Moonmint.jpg",
+        "ingredients": [
+            {
+                "_id": "65d65b0deb0de643eca5775c",
+                "title": "Milk",
+                "measure": "2 cups",
+                "ingredientId": "64aebb7f82d96cc69e0eb4d5"
+            },
+            {
+                "_id": "65d65b0deb0de643eca5775d",
+                "title": "Chocolate syrup",
+                "ingredientId": "64aebb7f82d96cc69e0eb4d7"
+            },
+            {
+                "_id": "65d65b0deb0de643eca5775e",
+                "title": "Mint syrup",
+                "ingredientId": "64f1d5c269d8333cf130fb61"
+            }
+        ],
+        "shortDescription": "A refreshing and minty cocktail with vodka, lime juice, and mint syrup."
+        }
+      },
+      "SerchDrinkByIngredientResponse": {
+        "type": "object",
+        "properties": {
+          "drink": {
+            "type": "object",
+            "properties": {
+              "drinkId": {
+                "type": "string",
+                "description": "All drinks from the selected ingredient",
+                "example": "Kahlua"
+              }
+            }
+          }
+        },
+        "example": {
+          "_id": "639b6de9ff77d221f190c50f",
+          "drink": "Quentin",
+          "drinkAlternate": "Sorry, not specified",
+          "tags": "IBA,ContemporaryClassic",
+          "video": "https://www.youtube.com/watch?v=2jtoa_t7g94",
+          "category": "Ordinary Drink",
+          "IBA": "Contemporary Classics",
+          "alcoholic": "Alcoholic",
+          "glass": "Cocktail glass",
+          "description": "Quentin is a refreshing cocktail that combines the flavors of citrus and mint. It is made with fresh lime juice, orange liqueur, and a touch of mint syrup. The drink is served over ice and garnished with a sprig of mint. It is the perfect beverage for a hot summer day.",
+          "instructions": "In a shaker half-filled with ice cubes, combine the rum, Kahlua, and cream. Shake well. Strain into a cocktail glass and garnish with the nutmeg.",
+          "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
+          "ingredients": [
+              {
+                  "_id": "65d65e0729e8f7d6550ba9c6",
+                  "title": "Dark rum",
+                  "measure": "1 1/2 oz ",
+                  "ingredientId": "64aebb7f82d96cc69e0eb4a7"
+              },
+              {
+                  "_id": "65d65e0729e8f7d6550ba9c7",
+                  "title": "Kahlua",
+                  "measure": "1/2 oz ",
+                  "ingredientId": "64aebb7f82d96cc69e0eb4bd"
+              },
+              {
+                  "_id": "65d65e0729e8f7d6550ba9c8",
+                  "title": "Light cream",
+                  "measure": "1 oz ",
+                  "ingredientId": "64f1d5c069d8333cf130fb31"
+              },
+              {
+                  "_id": "65d65e0729e8f7d6550ba9c9",
+                  "title": "Nutmeg",
+                  "measure": "1/8 tsp grated ",
+                  "ingredientId": "64f1d5c069d8333cf130fb34"
+              }
+          ],
+          "shortDescription": "A refreshing and citrusy cocktail with a hint of mint."
+        }
+      },
+    
+      "securitySchemes": {
       "Bearer": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
-      }
-    }
-  },
-  "securityDefinitions": {
-    "BearerAuth": {
+        }
+      },
+  
+     "securityDefinitions": {
+      "BearerAuth": {
       "type": "apiKey",
       "name": "Authorization",
       "in": "header"
+        }
+      }  
     }
-  }
+  } 
 }
