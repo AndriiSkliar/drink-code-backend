@@ -11,11 +11,13 @@ const {
   getAllDrinks,
   getDrinksByIngredient,
 } = require("../../controllers/filters");
+
 const {
   getOwnDrinks,
   removeOwnDrink,
 } = require("../../controllers/drinks/index");
-const { isValidId, authenticate } = require("../../middlewares");
+
+const { isValidId, authenticate, upload } = require("../../middlewares");
 
 // const { schemas } = require("../../models/drink");
 
@@ -27,13 +29,20 @@ router.get("/mainpage", authenticate, getHomePageDrinks);
 // GET/popular Отримання популярних  коктейлів
 
 // GET/search Отримання коктейлів по категорії + інгредієнту + ключовому слову
+
 router.get("/", authenticate, getAllDrinks);
 router.get("/search", authenticate, getDrinks);
 router.get("/search/category", authenticate, getDrinksByCategory);
 router.get("/search/ingredients", authenticate, getDrinksByIngredient);
 
-// POST/own/ add Додавання власного коктейлю
-router.post("/own/add", authenticate, jsonParser, addDrink);
+// POST/own/add Додавання власного коктейлю
+router.post(
+  "/own/add",
+  upload.single("drinkThumb"),
+  authenticate,
+  jsonParser,
+  addDrink
+);
 
 // DELETE/own/remove Видалення власного коктейлю
 router.delete("/own/remove/:id", authenticate, isValidId, removeOwnDrink);
