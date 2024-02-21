@@ -1,9 +1,10 @@
-const { Drink, drinkJoiSchema } = require('../../models/drink');
+const { Drink, drinkJoiSchema } = require("../../models/drink");
 
-const cloudinary = require('cloudinary');
+const cloudinary = require("cloudinary");
 
 const addDrink = async (req, res, next) => {
   const response = drinkJoiSchema.validate(req.body, { abortEarly: false });
+
   if (response.error) {
     return res.status(400).send({ message: `${response.error}` });
   }
@@ -29,7 +30,9 @@ const addDrink = async (req, res, next) => {
     ingredients,
     shortDescription,
   } = req.body;
+
   const owner = req.user._id;
+
   const drinkData = {
     drink,
     drinkAlternate,
@@ -54,12 +57,10 @@ const addDrink = async (req, res, next) => {
       shortDescription !== undefined ? shortDescription : description,
     owner,
   };
-  try {
-    await Drink.create(drinkData);
-    res.status(201).send({ message: 'Drink Created' });
-  } catch (error) {
-    next(error);
-  }
+
+  await Drink.create(drinkData);
+
+  res.status(201).send({ message: "Drink Created" });
 };
 
 module.exports = addDrink;

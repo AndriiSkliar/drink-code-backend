@@ -1,9 +1,14 @@
 const express = require("express");
 const jsonParser = express.json();
+const router = express.Router();
 
-const ctrl = require("../../controllers/drinks/getById");
-const getHomePageDrinks = require("../../controllers/drinks/getHomePageDrinks");
-const addDrink = require("../../controllers/drinks/addDrink");
+const {
+  getById,
+  getHomePageDrinks,
+  addDrink,
+  getOwnDrinks,
+  removeOwnDrink,
+} = require("../../controllers/drinks");
 
 const {
   getDrinksByCategory,
@@ -12,16 +17,9 @@ const {
   getDrinksByIngredient,
 } = require("../../controllers/filters");
 
-const {
-  getOwnDrinks,
-  removeOwnDrink,
-} = require("../../controllers/drinks/index");
-
 const { isValidId, authenticate, upload } = require("../../middlewares");
 
 // const { schemas } = require("../../models/drink");
-
-const router = express.Router();
 
 // GET/mainpage Отримання коктейлів для головної сторінки
 router.get("/mainpage", authenticate, getHomePageDrinks);
@@ -46,6 +44,7 @@ router.post(
 
 // GET/own Отримання власних коктейлів
 router.get("/own", authenticate, getOwnDrinks);
+
 // POST/favorite/add/ Додавання коктейлю до обраних
 // DELETE/favorite/remove/ Видалення коктейлю з обраних
 
@@ -53,6 +52,6 @@ router.get("/own", authenticate, getOwnDrinks);
 router.delete("/own/remove/:id", authenticate, isValidId, removeOwnDrink);
 
 // GET/:id Отримання одного коктейлю за ID
-router.get("/:id", authenticate, isValidId, ctrl.getById);
+router.get("/:id", authenticate, isValidId, getById);
 
 module.exports = router;
