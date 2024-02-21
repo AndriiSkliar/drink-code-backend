@@ -1,5 +1,4 @@
 const { Drink } = require("../../models/drink");
-const { ctrlWrapper } = require("../../helpers");
 
 const getHomePageDrinks = async (req, res, next) => {
   const { isAdult } = req.user;
@@ -18,4 +17,4 @@ const getHomePageDrinks = async (req, res, next) => {
   res.json(drinks);
 };
 
-module.exports = ctrlWrapper(getHomePageDrinks);
+module.exports = getHomePageDrinks;

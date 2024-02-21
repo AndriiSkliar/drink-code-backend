@@ -1,7 +1,7 @@
 const { Drink } = require("../../models/drink");
 const { Ingredient } = require("../../models/ingridents");
 
-const { HttpError, ctrlWrapper } = require("../../helpers");
+const { HttpError } = require("../../helpers");
 
 const getById = async (req, res) => {
   const { id } = req.params;
@@ -14,6 +14,4 @@ const getById = async (req, res) => {
   res.status(200).json(result);
 };
 
-module.exports = {
-  getById: ctrlWrapper(getById),
-};
+module.exports = getById;
