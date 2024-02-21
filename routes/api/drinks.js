@@ -11,7 +11,10 @@ const {
   getAllDrinks,
   getDrinksByIngredient,
 } = require("../../controllers/filters");
-
+const {
+  getOwnDrinks,
+  removeOwnDrink,
+} = require("../../controllers/drinks/index");
 const { isValidId, authenticate } = require("../../middlewares");
 
 // const { schemas } = require("../../models/drink");
@@ -30,10 +33,12 @@ router.get("/search/category", authenticate, getDrinksByCategory);
 router.get("/search/ingredients", authenticate, getDrinksByIngredient);
 
 // POST/own/ add Додавання власного коктейлю
-router.post("/own/add", jsonParser, addDrink);
+router.post("/own/add", authenticate, jsonParser, addDrink);
 
 // DELETE/own/remove Видалення власного коктейлю
+router.delete("/own/remove/:id", authenticate, isValidId, removeOwnDrink);
 // GET/own Отримання власних коктейлів
+router.get("/own", authenticate, getOwnDrinks);
 // POST/favorite/add/ Додавання коктейлю до обраних
 // DELETE/favorite/remove/ Видалення коктейлю з обраних
 
