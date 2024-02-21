@@ -29,7 +29,7 @@ const addDrink = async (req, res, next) => {
     ingredients,
     shortDescription,
   } = req.body;
-
+  const owner = req.user._id;
   const drinkData = {
     drink,
     drinkAlternate,
@@ -52,6 +52,7 @@ const addDrink = async (req, res, next) => {
     ingredients,
     shortDescription:
       shortDescription !== undefined ? shortDescription : description,
+    owner,
   };
   try {
     await Drink.create(drinkData);

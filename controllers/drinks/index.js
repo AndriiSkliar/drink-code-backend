@@ -1,7 +1,7 @@
 const { HttpError, controllerWrapper } = require("../../helpers");
-const { Drink, schemas } = require("../models/drink");
-const User = require("../models/user");
-const { Ingredient } = require("../models/ingredient");
+const { Drink, schemas } = require("../../models/drink");
+const User = require("../../models/user");
+const { Ingredient } = require("../../models/ingridents");
 
 const path = require("path");
 const fs = require("fs/promises");
@@ -243,6 +243,7 @@ const getOwnDrinks = async (req, res) => {
 
 const removeOwnDrink = async (req, res) => {
   const { id } = req.params;
+
   const { _id: currentUser } = req.user;
 
   const result = await Drink.findById(id);
@@ -260,4 +261,4 @@ const removeOwnDrink = async (req, res) => {
   res.json({ result: removedDrink });
 };
 
-module.exports = {};
+module.exports = { getOwnDrinks, removeOwnDrink };
