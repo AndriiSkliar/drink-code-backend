@@ -44,12 +44,13 @@ router.post(
   addDrink
 );
 
-// DELETE/own/remove Видалення власного коктейлю
-router.delete("/own/remove/:id", authenticate, isValidId, removeOwnDrink);
 // GET/own Отримання власних коктейлів
 router.get("/own", authenticate, getOwnDrinks);
 // POST/favorite/add/ Додавання коктейлю до обраних
 // DELETE/favorite/remove/ Видалення коктейлю з обраних
+
+// DELETE/own/remove Видалення власного коктейлю
+router.delete("/own/remove/:id", authenticate, isValidId, removeOwnDrink);
 
 // GET/:id Отримання одного коктейлю за ID
 router.get("/:id", authenticate, isValidId, ctrl.getById);
