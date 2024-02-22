@@ -5,6 +5,7 @@ const getById = require("./getById");
 const getHomePageDrinks = require("./getHomePageDrinks");
 const getOwnDrinks = require("./getOwnDrinks");
 const removeOwnDrink = require("./removeOwnDrink");
+const getFavorites = require("../drinks/getFavorites");
 
 module.exports = {
   addDrink: ctrlWrapper(addDrink),
@@ -12,4 +13,5 @@ module.exports = {
   getHomePageDrinks: ctrlWrapper(getHomePageDrinks),
   getOwnDrinks: ctrlWrapper(getOwnDrinks),
   removeOwnDrink: ctrlWrapper(removeOwnDrink),
+  getFavorites: ctrlWrapper(getFavorites),
 };

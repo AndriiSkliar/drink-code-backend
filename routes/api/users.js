@@ -7,6 +7,5 @@ const router = express.Router();
 router.patch("/update", authenticate, upload.single('avatarURL'), ctrl.updateUser);
 router.get("/current", authenticate, ctrl.getCurrent);
 router.post("/subscribe", authenticate, ctrl.subscribe);
-router.get("/favorites", authenticate, ctrl.getFavorites);
 
 module.exports = router;
