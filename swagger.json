@@ -642,7 +642,7 @@
         }
       } 
     },
-    "/api/drinks/ingredients": {
+    "/api/drinks/search/ingredients": {
       "get": {
         "tags": ["Drinks"],
         "summary": "Search drink by ingredients",
