@@ -17,9 +17,9 @@ const {
   getDrinksByIngredient,
 } = require("../../controllers/filters");
 
-const { isValidId, authenticate, upload } = require("../../middlewares");
+const { isValidId, authenticate, upload, validateBody } = require("../../middlewares");
 
-// const { schemas } = require("../../models/drink");
+const { searchByCategorySchema, searchDrinkSchema } = require("../../models/drink");
 
 // GET/mainpage Отримання коктейлів для головної сторінки
 router.get("/mainpage", authenticate, getHomePageDrinks);
@@ -29,8 +29,8 @@ router.get("/mainpage", authenticate, getHomePageDrinks);
 // GET/search Отримання коктейлів по категорії + інгредієнту + ключовому слову
 
 router.get("/", authenticate, getAllDrinks);
-router.get("/search", authenticate, getDrinks);
-router.get("/search/category", authenticate, getDrinksByCategory);
+router.get("/search", authenticate, jsonParser, validateBody(searchDrinkSchema), getDrinks);
+router.get("/search/category", authenticate, jsonParser, validateBody(searchByCategorySchema), getDrinksByCategory);
 router.get("/search/ingredients", authenticate, getDrinksByIngredient);
 
 // POST/own/add Додавання власного коктейлю
