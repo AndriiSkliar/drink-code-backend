@@ -8,6 +8,7 @@ const {
   addDrink,
   getOwnDrinks,
   removeOwnDrink,
+  getFavorites,
 } = require("../../controllers/drinks");
 
 const {
@@ -44,7 +45,7 @@ router.post(
 
 // GET/own Отримання власних коктейлів
 router.get("/own", authenticate, getOwnDrinks);
-
+router.get("/favorites", authenticate, getFavorites);
 // POST/favorite/add/ Додавання коктейлю до обраних
 // DELETE/favorite/remove/ Видалення коктейлю з обраних
 

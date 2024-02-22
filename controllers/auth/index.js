@@ -6,7 +6,7 @@ const verifyEmail = require("./verifyEmail");
 const resendVerifyEmail = require("./resendVerifyEmail");
 const logout = require("./logout");
 const getCurrent = require("./getCurrent");
-const getFavorites = require("./getFavorites");
+
 const updateUser = require("./updateUser");
 const subscribe = require("./subscribe");
 
@@ -18,7 +18,6 @@ module.exports = {
 
   logout: ctrlWrapper(logout),
   getCurrent: ctrlWrapper(getCurrent),
-  getFavorites: ctrlWrapper(getFavorites),
 
   updateUser: ctrlWrapper(updateUser),
   subscribe: ctrlWrapper(subscribe),
