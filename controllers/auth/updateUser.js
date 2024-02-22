@@ -1,9 +1,8 @@
+// @ts-nocheck
 const { User } = require("../../models/user");
 
 const updateUser = async (req, res) => {
-
     let newUserName, newAvatarURL;
-    
     const { _id, name: currentUserName } = req.user;                                                  
     const { name } = req.body;
     if (!name) { newUserName = currentUserName }
