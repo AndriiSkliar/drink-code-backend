@@ -431,6 +431,81 @@
         }
       }
     },
+    "/api/drinks/mainpage": {
+      "get": {
+        "summary": "Getting a list of cocktails with the newest ones at the beginning",
+        "description": "Returns a list of cocktails where the newest ones are displayed at the beginning.",        
+        "tags": ["Drinks"],
+        "parameters": [],
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {
+            "description": "Successful response with the list of drinks",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ListOfDrinksResponse"}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {  
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {"type": "string", "description": "Description of the error."}
+                  },
+                  "example": {"message": "Bad Request. Please check your request."}
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {"type": "string", "description": "Description of the error."}
+                  },
+                  "example": {"message": "Unauthorized. Missing or invalid authorization token."}
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recipes Collection Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {"type": "string", "description": "Description of the error."}
+                  },
+                  "example": {"message": "The requested recipes collection was not found."}
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {"type": "string", "description": "Description of the error."}
+                  },
+                  "example": {"message": "Internal Server Error. Please try again later."}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/drinks/search": {
       "get": {
         "tags": ["Drinks"],
@@ -492,7 +567,7 @@
                 },
                 "example": {
                   "message": "Entering text is not valid."
-                }
+                  }
               }
             }
           }
@@ -636,7 +711,6 @@
       } 
     } 
   },
-
   "components": {
     "schemas": {
       "SignUpRequest": {
@@ -1043,22 +1117,96 @@
           "shortDescription": "A refreshing and citrusy cocktail with a hint of mint."
         }
       },
-    
-      "securitySchemes": {
+      "ListOfDrinksResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {"type": "string", "description": "Unique identifier for the drink", "example": "65d539ec33830ce177be159b"},
+            "drink": {"type": "string", "description": "Name of the drink", "example": "TestVodka3"},
+            "drinkAlternate": {"type": "string", "description": "Alternative name of the drink (if available)", "example": "AlternativeTest"},
+            "tags": {"type": "string", "description": "Tags associated with the drink", "example": "Vodka, Test, Alcoholic"},
+            "video": {"type": "string", "description": "Link to the video recipe (if available)", "example": "https://www.youtube.com/watch?v=example"},
+            "category": {"type": "string", "description": "Category of the drink", "example": "Ordinary Drink"},
+            "IBA": {"type": "string", "description": "International Bartenders Association classification (if specified)", "example": "Classic"},
+            "alcoholic": {"type": "string", "description": "Indicates whether the drink is alcoholic", "example": "Alcoholic"},
+            "glass": {"type": "string", "description": "Type of glass in which the drink is served", "example": "Highball glass"},
+            "description": {"type": "string", "description": "Detailed description of the drink", "example": "A classic vodka-based cocktail."},
+            "instruction": {"type": "string", "description": "Instructions for preparing the drink", "example": "1. Mix vodka and soda. 2. Garnish with a lemon slice."},
+            "instructionsES": {"type": "string", "description": "Instructions in Spanish (if available)", "example": "Instrucciones en español."},
+            "instructionsDE": {"type": "string", "description": "Instructions in German (if available)", "example": "Anweisungen auf Deutsch."},
+            "instructionsFR": {"type": "string", "description": "Instructions in French (if available)", "example": "Instructions en français."},
+            "instructionsIT": {"type": "string", "description": "Instructions in Italian (if available)", "example": "Istruzioni in italiano."},
+            "instructionsRU": {"type": "string", "description": "Instructions in Russian (if available)", "example": "Инструкции на русском языке."},
+            "instructionsPL": {"type": "string", "description": "Instructions in Polish (if available)", "example": "Instrukcje po polsku."},
+            "instructionsUK": {"type": "string", "description": "Instructions in Ukrainian (if available)", "example": "Інструкції українською мовою."},
+            "drinkThumb": {"type": "string", "description": "Link to the image of the drink (if available)", "example": "https://example.com/drink.jpg"},
+            "ingredients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ingredientId": {"type": "string", "description": "Unique identifier of the ingredient", "example": "6068f67ea04f7a001fb92f24"},
+                  "_id": {"type": "string", "description": "Unique identifier of the association with the drink", "example": "65d539ec33830ce177be159c"}
+                }
+              }
+            },
+            "shortDescription": {"type": "string", "description": "Brief description of the drink", "example": "A refreshing vodka cocktail."},
+            "owner": {"type": "string", "description": "Unique identifier of the drink owner", "example": "65d2a0f8f692541d5ef893fb"},
+            "favorite": {"type": "array", "description": "List of users who have added the drink to their favorites", "example": ["user1", "user2"]},
+            "createdAt": {"type": "string", "format": "date-time", "description": "Date and time when the drink was created", "example": "2024-02-20T23:46:52.361Z"},
+            "updatedAt": {"type": "string", "format": "date-time", "description": "Date and time of the last update to the drink", "example": "2024-02-20T23:46:52.361Z"}
+          }
+        },
+        "example": [
+          {
+            "_id": "65d539ec33830ce177be159b",
+            "drink": "TestVodka3",
+            "drinkAlternate": "AlternativeTest",
+            "tags": "Vodka, Test, Alcoholic",
+            "video": "https://www.youtube.com/watch?v=example",
+            "category": "Ordinary Drink",
+            "IBA": "Classic",
+            "alcoholic": "Alcoholic",
+            "glass": "Highball glass",
+            "description": "A classic vodka-based cocktail.",
+            "instruction": "1. Mix vodka and soda. 2. Garnish with a lemon slice.",
+            "instructionsES": "Instrucciones en español.",
+            "instructionsDE": "Anweisungen auf Deutsch.",
+            "instructionsFR": "Instructions en français.",
+            "instructionsIT": "Istruzioni in italiano.",
+            "instructionsRU": "Инструкции на русском языке.",
+            "instructionsPL": "Instrukcje po polsku.",
+            "instructionsUK": "Інструкції українською мовою.",
+            "drinkThumb": "https://example.com/drink.jpg",
+            "ingredients": [
+              {"ingredientId": "6068f67ea04f7a001fb92f24", "_id": "65d539ec33830ce177be159c"},
+              {"ingredientId": "6068f67ea04f7a001fb92f25", "_id": "65d539ec33830ce177be159d"}
+            ],
+            "shortDescription": "A refreshing vodka cocktail.",
+            "owner": "65d2a0f8f692541d5ef893fb",
+            "favorite": ["user1", "user2"],
+            "createdAt": "2024-02-20T23:46:52.361Z",
+            "updatedAt": "2024-02-20T23:46:52.361Z"
+          }
+        ],
+        "description": "An array of drink objects."
+      }
+    },
+    "securitySchemes": {
       "Bearer": {
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
         }
-      },
-  
-     "securityDefinitions": {
+    },
+    "securityDefinitions": {
       "BearerAuth": {
       "type": "apiKey",
       "name": "Authorization",
       "in": "header"
         }
-      }  
-    }
-  } 
-}
+    }  
+  }
+} 
+
