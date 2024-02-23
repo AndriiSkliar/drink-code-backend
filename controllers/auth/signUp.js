@@ -6,7 +6,7 @@ const { User } = require("../../models/user");
 const { HttpError, sendEmail, fullYearsCount } = require("../../helpers");
 
 // const { BASE_URL } = process.env;
-const BASE_URL = 'https://drink-code-backend.onrender.com/';
+const BASE_URL = 'https://andriiskliar.github.io/drink-code-frontend/';
 
 const signUp = async (req, res) => {
     const {email, password } = req.body;
