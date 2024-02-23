@@ -5,7 +5,8 @@ const { User } = require("../../models/user");
 
 const { HttpError, sendEmail, fullYearsCount } = require("../../helpers");
 
-const { BASE_URL } = process.env;
+// const { BASE_URL } = process.env;
+const BASE_URL = 'http://localhost:5173/drink-code-frontend/';
 
 const signUp = async (req, res) => {
     const {email, password } = req.body;
@@ -29,7 +30,7 @@ const signUp = async (req, res) => {
         to: email,
         subject: "Verify email",
         // html: `<a target="_blank" href="${BASE_URL}/api/auth/verify/${verificationToken}">Click verify email</a>`
-        html: `<a target="_blank" href="http://localhost:5173/drink-code-frontend/${verificationToken}">Click verify email</a>`
+        html: `<a target="_blank" href="${BASE_URL}${verificationToken}">Click verify email</a>`
     };
 
     await sendEmail(verifyEmail);
