@@ -9,6 +9,8 @@ const {
   getOwnDrinks,
   removeOwnDrink,
   getFavorites,
+  removeFromFavorites,
+  addToFavorites,
 } = require("../../controllers/drinks");
 
 const {
@@ -18,9 +20,17 @@ const {
   getDrinksByIngredient,
 } = require("../../controllers/filters");
 
-const { isValidId, authenticate, upload, validateBody } = require("../../middlewares");
+const {
+  isValidId,
+  authenticate,
+  upload,
+  validateBody,
+} = require("../../middlewares");
 
-const { searchByCategorySchema, searchDrinkSchema } = require("../../models/drink");
+const {
+  searchByCategorySchema,
+  searchDrinkSchema,
+} = require("../../models/drink");
 
 // GET/mainpage Отримання коктейлів для головної сторінки
 router.get("/mainpage", authenticate, getHomePageDrinks);
@@ -30,8 +40,20 @@ router.get("/mainpage", authenticate, getHomePageDrinks);
 // GET/search Отримання коктейлів по категорії + інгредієнту + ключовому слову
 
 router.get("/", authenticate, getAllDrinks);
-router.get("/search", authenticate, jsonParser, validateBody(searchDrinkSchema), getDrinks);
-router.get("/search/category", authenticate, jsonParser, validateBody(searchByCategorySchema), getDrinksByCategory);
+router.get(
+  "/search",
+  authenticate,
+  jsonParser,
+  validateBody(searchDrinkSchema),
+  getDrinks
+);
+router.get(
+  "/search/category",
+  authenticate,
+  jsonParser,
+  validateBody(searchByCategorySchema),
+  getDrinksByCategory
+);
 router.get("/search/ingredients", authenticate, getDrinksByIngredient);
 
 // POST/own/add Додавання власного коктейлю
@@ -45,9 +67,10 @@ router.post(
 
 // GET/own Отримання власних коктейлів
 router.get("/own", authenticate, getOwnDrinks);
+
 router.get("/favorites", authenticate, getFavorites);
-// POST/favorite/add/ Додавання коктейлю до обраних
-// DELETE/favorite/remove/ Видалення коктейлю з обраних
+router.delete("/favorites/remove/:id", authenticate, removeFromFavorites);
+router.post("/favorites/add/:id", authenticate, addToFavorites);
 
 // DELETE/own/remove Видалення власного коктейлю
 router.delete("/own/remove/:id", authenticate, isValidId, removeOwnDrink);
