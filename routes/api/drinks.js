@@ -15,6 +15,7 @@ const {
 
 const {
   getDrinksByCategory,
+  getPopularDrinks,
   getDrinks,
   getAllDrinks,
   getDrinksByIngredient,
@@ -35,11 +36,13 @@ const {
 // GET/mainpage Отримання коктейлів для головної сторінки
 router.get("/mainpage", authenticate, getHomePageDrinks);
 
-// GET/popular Отримання популярних  коктейлів
-
 // GET/search Отримання коктейлів по категорії + інгредієнту + ключовому слову
 
 router.get("/", authenticate, getAllDrinks);
+
+// GET/popular Отримання популярних  коктейлів
+router.get("/popular", authenticate, getPopularDrinks);
+
 router.get(
   "/search",
   authenticate,
