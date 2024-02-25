@@ -567,23 +567,20 @@
         }
       }
     },
-    "/api/drinks/search": {
+    "/api/drinks/search?letter={letter}": {
       "get": {
         "tags": ["Drinks"],
         "summary": "Search drink by letter/word",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "# Description of the request parameters:\n**letter** - string (from 1 to 20 characters).",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DrinkInfoResponse"
-              }
-            }
+        "parameters": [
+          {
+            "in": "query",
+            "name": "letter",
+            "required": true,
+            "type": "string",
+            "description": "Search Drinks by letter/word"
           }
-        },
+        ],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "content": {
@@ -635,23 +632,20 @@
         }
       }
     },
-    "/api/drinks/search/category": {
+    "/api/drinks/search/category?category={category}": {
       "get": {
         "tags": ["Drinks"],
         "summary": "Search drink by category",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "# Description of the request parameters:\n**category** - string.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DrinkInfoResponse"
-              }
-            }
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "required": true,
+            "type": "string",
+            "description": "Search Drinks by category"
           }
-        },
+        ],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "content": {
@@ -703,23 +697,20 @@
         }
       }
     },
-    "/api/drinks/search/ingredients": {
+    "/api/drinks/search/ingredients?ingredient={ingredient}": {
       "get": {
         "tags": ["Drinks"],
         "summary": "Search drink by ingredients",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "# Description of the request parameters:\n**ingredients** - string.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DrinkInfoResponse"
-              }
-            }
+        "parameters": [
+          {
+            "in": "query",
+            "name": "ingredient",
+            "required": true,
+            "type": "string",
+            "description": "Search Drinks by ingredient"
           }
-        },
+        ],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
             "content": {
