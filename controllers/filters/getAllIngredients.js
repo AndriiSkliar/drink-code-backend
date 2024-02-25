@@ -1,7 +1,7 @@
-const { Ingredients } = require("../../models/ingredients");
+const { Ingredient } = require("../../models/ingridents");
 
 const getAllIngredients = async (req, res) => {
-  const ingredients = await Ingredients.find();
+  const ingredients = await Ingredient.find();
 
   if (ingredients.length === 0) {
     return res.status(404).json({ message: "No ingredients found" });
