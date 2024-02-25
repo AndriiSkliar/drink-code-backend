@@ -179,7 +179,7 @@
         "tags": ["Auth"],
         "summary": "Signs out user",
         "parameters": [],
-        "description": "**Ендпоінт логауту** - це механізм виходу з системи, який припиняє дію сесії користувача та знищує токен доступу, що був виданий при попередній аутентифікації.\n**Опис:** Коли користувач натискає кнопку вийти з системи, він робить запит на URL/auth/signout з валідним токеном у заголовку Authorization. Сервер перевіряє валідність токена, якщо токен є дійсним, то сесія користувача закривається, токен видаляється і користувач повертається на сторінку входу в систему. Якщо токен не є валідним, то сервер повертає статус 401 і повідомляє про невалідність токена.",
+        "description": "Logout endpoint is a logout mechanism that terminates a user's session and destroys the access token issued during pre-authentication. \n Description:  When a user clicks the logout button, it requests URL/auth/signout with a valid token in the authorization header. The server checks the validity of the token, if the token is valid, the user's session is closed, the token is removed and the user is returned to the login page. If the token is invalid, the server returns a 401 status and informs the user that the token is invalid.",
         "security": [{ "Bearer": [] }],
         "responses": {
           "204": {
@@ -770,6 +770,165 @@
           }
         }
       }
+    },
+    "/api/drinks/own/add": {
+      "post": {
+        "summary": "Add your own drink",
+        "description": "Endpoint for adding a new drink",
+        "tags": ["Drinks"],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Endpoint for adding a new drink",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListOfDrinksResponse",
+                "type":"object"
+              },
+              "properties":{
+                "drinkThumb":"https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
+                "type": "string",
+                "format":"binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Drink successfully added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOfDrinksResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/drinks/favorites": {
+      "get": {
+        "summary": "Get favorites drink!",
+        "description": "ID of the drink to add to favorites",
+        "tags": ["Drinks"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOfDrinksResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/drinks/favorite/add/{id}": {
+      "post": {
+        "summary": "Add drink to favorites",
+        "description": "Adding a cocktail to favorites by ID",
+        "tags": ["Drinks"],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "objectId"
+            }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOfDrinksResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/drinks/favorite/remove/{id}": {
+      "delete": {
+        "tags": ["Drinks"],
+        "summary": "Remove drink from favorites",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "objectId"
+      
+            },
+            "description": "Drink id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "The ID of the drink to remove",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListOfDrinksResponse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveFromFavoritesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
     }
   },
 
@@ -801,169 +960,6 @@
           }
         }
       },
-
-      "/api/drinks/own/add": {
-        "post": {
-          "tags": ["Drinks"],
-          "summary": "Add your own drink",
-          "security": [{ "Bearer": [] }],
-          "requestBody": {
-            "description": "Endpoint for adding a new drink",
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListOfDrinksResponse",
-                  "type":"object"
-                },
-                "properties":{
-                  "drinkThumb":"https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
-                  "type": "string",
-                  "format":"binary"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Drink successfully added",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ListOfDrinksResponse"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized"
-            },
-            "404": {
-              "description": "Not found"
-            }
-          }
-        }
-      },
-
-      "/api/drinks/favorites": {
-        "get": {
-          "tags": ["Drinks"],
-          "summary": "Get favorites drink!",
-          "parameters": [
-            {
-              "in": "query",
-              "name": "page",
-              "description": "ID of the drink to add to favorites"
-            }
-          ],
-          "security": [{ "Bearer": [] }],
-          "responses": {
-            "200": {
-              "description": "Successful response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ListOfDrinksResponse"
-                  }
-                }
-              }
-            },
-            "401": {
-              "description": "Unauthorized"
-            },
-            "404": {
-              "description": "Not found"
-            }
-          }
-        },
-
-        "/api/drinks/favorite/add/{id}": {
-          "post": {
-            "tags": ["Drinks"],
-            "summary": "Add drink to favorites",
-            "parameters": [
-              {
-                "name": "id",
-                "required": true,
-                "schema": {
-                  "type": "string",
-                  "format": "objectId"
-
-                },
-                "description": "Drink id"
-              }
-            ],
-            "security": [{ "Bearer": [] }],
-            "responses": {
-              "200": {
-                "description": "Successful response",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/ListOfDrinksResponse"
-                    }
-                  }
-                }
-              },
-              "401": {
-                "description": "Unauthorized"
-              },
-              "404": {
-                "description": "Not found"
-              }
-            }
-          }
-        },"/api/drinks/favorite/remove/{id}": {
-          "delete": {
-            "tags": ["Drinks"],
-            "summary": "Remove drink from favorites",
-            "parameters": [
-              {
-        
-                "name": "id",
-                "required": true,
-                "schema": {
-                  "type": "string",
-                  "format": "objectId"
-          
-                },
-                "description": "Drink id"
-              }
-            ],
-            "security": [{ "Bearer": [] }],
-            "requestBody": {
-              "description": "The ID of the drink to remove",
-              "required": true,
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ListOfDrinksResponse"
-                  }
-                }
-              }
-            },
-            "responses": {
-              "200": {
-                "description": "Successful response",
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "$ref": "#/components/schemas/RemoveFromFavoritesResponse"
-                    }
-                  }
-                }
-              },
-              "401": {
-                "description": "Unauthorized"
-              },
-              "404": {
-                "description": "Not found"
-              }
-            }
-          }
-        }
-      },
-
       "SignUpResponse": {
         "type": "object",
         "properties": {
