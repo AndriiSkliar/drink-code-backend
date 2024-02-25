@@ -817,7 +817,7 @@
                   "type":"object"
                 },
                 "properties":{
-                  "drinkThumb":"https://example.com/drink.jpg",
+                  "drinkThumb":"https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
                   "type": "string",
                   "format":"binary"
                 }
