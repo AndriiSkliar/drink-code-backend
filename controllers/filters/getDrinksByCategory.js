@@ -1,7 +1,7 @@
 const { Drink } = require("../../models/drink");
 
 const getDrinksByCategory = async (req, res) => {
-    const { category } = req.body;
+    const { category } = req.query;
     
    const drinks = await Drink.find({});
    const drinksFilter = await drinks.filter((drink) =>

@@ -25,13 +25,9 @@ const {
   isValidId,
   authenticate,
   upload,
-  validateBody,
 } = require("../../middlewares");
 
-const {
-  searchByCategorySchema,
-  // searchDrinkSchema,
-} = require("../../models/drink");
+
 
 // GET/mainpage Отримання коктейлів для головної сторінки
 router.get("/mainpage", authenticate, getHomePageDrinks);
@@ -43,18 +39,11 @@ router.get("/", authenticate, getAllDrinks);
 // GET/popular Отримання популярних  коктейлів
 router.get("/popular", authenticate, getPopularDrinks);
 
-router.get(
-  "/search",
-  authenticate,
-  jsonParser,
-
-  getDrinks
-);
+router.get("/search", authenticate, jsonParser, getDrinks);
 router.get(
   "/search/category",
   authenticate,
   jsonParser,
-  validateBody(searchByCategorySchema),
   getDrinksByCategory
 );
 router.get("/search/ingredients", authenticate, getDrinksByIngredient);

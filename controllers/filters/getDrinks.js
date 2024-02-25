@@ -1,7 +1,7 @@
 const { Drink } = require("../../models/drink");
 
 const getDrinks = async (req, res) => {
-  console.log(req);
+  
   const { letter } = req.query;
 
   const drinks = await Drink.find({});
