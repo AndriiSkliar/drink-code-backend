@@ -1,5 +1,4 @@
 const { Drink } = require("../../models/drink");
-const { Ingredient } = require("../../models/ingridents");
 
 const { HttpError } = require("../../helpers");
 

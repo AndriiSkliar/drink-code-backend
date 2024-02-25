@@ -9,7 +9,6 @@ const subscribe = async (req, res) => {
 
   if (typeof response.error !== "undefined") {
     throw HttpError(400, "Please insert a valid email");
-    // throw HttpError(400, response.error.details[0].message);
   }
 
   const { email: subscrEmail } = req.body;
@@ -20,7 +19,7 @@ const subscribe = async (req, res) => {
   }
 
   if (subscribe === true) {
-    throw HttpError(400, "This email address is already subscribed");
+    throw HttpError(409, "This email address is already subscribed");
   }
 
   const EmailAboutSubscription = {
