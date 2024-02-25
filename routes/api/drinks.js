@@ -30,7 +30,7 @@ const {
 
 const {
   searchByCategorySchema,
-  searchDrinkSchema,
+  // searchDrinkSchema,
 } = require("../../models/drink");
 
 // GET/mainpage Отримання коктейлів для головної сторінки
@@ -47,7 +47,7 @@ router.get(
   "/search",
   authenticate,
   jsonParser,
-  validateBody(searchDrinkSchema),
+
   getDrinks
 );
 router.get(
