@@ -50,6 +50,6 @@ const ingredientSchema = new Schema(
 
 ingredientSchema.post("save", handleMongooseError);
 
-const Ingredient = model("ingredient", ingredientSchema);
+const Ingredients = model("ingredients", ingredientSchema);
 
-module.exports = { Ingredient };
+module.exports = { Ingredients };

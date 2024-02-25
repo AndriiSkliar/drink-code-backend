@@ -1,5 +1,5 @@
 const { Drink } = require("../../models/drink");
-const { Ingredient } = require("../../models/ingridents");
+const { Ingredients } = require("../../models/ingredients");
 
 const { HttpError } = require("../../helpers");
 
