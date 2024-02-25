@@ -1,7 +1,7 @@
 const { HttpError } = require("../../helpers");
 const { Drink } = require("../../models/drink");
 const User = require("../../models/user");
-const { Ingredient } = require("../../models/ingridents");
+const { Ingredients } = require("../../models/ingredients");
 
 const path = require("path");
 const fs = require("fs/promises");
