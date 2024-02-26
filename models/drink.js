@@ -44,7 +44,7 @@ const drinkSchema = new Schema(
       // required field
       type: String,
       required: true,
-      enum: ["Alcoholic", "Non alcoholic"],
+      enum: ["Alcoholic", "Non-alcoholic"],
     },
     glass: {
       type: String,
@@ -180,7 +180,7 @@ const drinkJoiSchema = Joi.object({
       "any.required": "The category field is required",
     }),
   alcoholic: Joi.string()
-    .valid("Alcoholic", "Non alcoholic")
+    .valid("Alcoholic", "Non-alcoholic")
     .required()
     .messages({
       "any.required": `missing required field 'alcoholic' of recipes`,
