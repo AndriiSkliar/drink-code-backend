@@ -10,6 +10,9 @@ const getCurrent = require("./getCurrent");
 const updateUser = require("./updateUser");
 const subscribe = require("./subscribe");
 
+const { googleAuth } = require("./googleAuth");
+const { googleRedirect } = require("./googleAuth");
+
 module.exports = {
   signUp: ctrlWrapper(signUp),
   signIn: ctrlWrapper(signIn),
@@ -21,4 +24,7 @@ module.exports = {
 
   updateUser: ctrlWrapper(updateUser),
   subscribe: ctrlWrapper(subscribe),
+
+  googleAuth: ctrlWrapper(googleAuth),
+  googleRedirect: ctrlWrapper(googleRedirect),
 };
