@@ -252,7 +252,7 @@
         "summary": "Updating user information",
         "consumes": ["multipart/form-data", "application/json"],
         "parameters": [],
-        "description": "Updating user information",
+        "description": "Updating user information: user name and avatar",
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "# Description of the request parameters:\n**name** - string, user name.",
@@ -286,6 +286,25 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "\"name\" length must be at least 3 characters long"
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "description": "Not authorized",
             "content": {
@@ -301,6 +320,44 @@
                 },
                 "example": {
                   "message": "Not authorized."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Not found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Internal Server Error. Please try again later."
+                  }
                 }
               }
             }
@@ -405,6 +462,84 @@
         }
       }
     },
+  "/api/drinks/popular": {
+    "get": {
+      "tags": ["Drinks"],
+      "summary": "Getting 4 (four) most popular cocktails due to user's favorites",
+      "description": "Getting 4 (four) most popular cocktails due to user's favorites",
+      "parameters": [],
+      "security": [{"Bearer": []}],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListOfDrinksResponse"
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Not authorized",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Description of the error."
+                  }
+                }
+              },
+              "example": {
+                "message": "Not authorized."
+              }
+            }
+          }
+        },
+       "404": {
+            "description": "Popular Drinks Collection Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "${pathname} is not valid id"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Internal Server Error. Please try again later."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/api/drinks/{id}": {
       "get": {
         "tags": ["Drinks"],
