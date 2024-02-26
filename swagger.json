@@ -539,7 +539,6 @@
         }
       }
     },
-
     "/api/drinks/{id}": {
       "get": {
         "tags": ["Drinks"],
@@ -943,8 +942,10 @@
                       "description": "Please check if you added it correctly "
                     }
                   }
-                },
-                
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found",
             "content": {
@@ -961,6 +962,9 @@
                 "example": {
                   "message": "Not found"
                 }
+              }
+            }
+          }
         }
       }
     },
@@ -1029,7 +1033,6 @@
         }
       }
     },
-
     "/api/drinks/favorites": {
       "get": {
         "tags": ["Drinks"],
@@ -1291,99 +1294,14 @@
         }
       }
     }
-  },
+    },
 
-  "components": {
-    "schemas": {
-      "SignUpRequest": {
-        "type": "object",
-        "required": ["name", "email", "password", "birthday"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "User's name",
-            "example": "Anton"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
-          },
-          "birthday": {
-            "type": "date",
-            "description": "User's birthdate",
-            "example": "01.01.2000"
-          }
-        }
-      },
-      "SignUpResponse": {
-        "type": "object",
-        "properties": {
-          "user": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Username",
-                "example": "Anton"
-              },
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "format": "email"
-              },
-              "avatarURL": {
-                "type": "string",
-                "description": "User's avatarURL",
-                "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
-              },
-              "birthday": {
-                "type": "date",
-                "description": "User's birthdate",
-                "example": "2000-01-01T05:00:00.000Z"
-              }
-            }
-          }
-        },
-        "example": {
-          "user": {
-            "name": "Anton",
-            "email": "user@example.com",
-            "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
-            "birthday": "01.01.2000"
-          }
-        }
-      },
-      "SignInRequest": {
-        "type": "object",
-        "required": ["email", "password"],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "qwerty123"
-          }
-        }
-      },
-      "SignInResponse": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string",
-            "description": "User's token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBhOTM1YWQyNzAxMzg2NzBjYzhhYiIsImlhdCI6MTcwODE3MzY4NSwiZXhwIjoxNzA4MjU2NDg1fQ.VlvFfOaONgtojDztPPMmgxZuHdlxO15oJe1DYe78BgA"
-          },
-          "user": {
+    "components": {
+      "schemas": {
+        "SignUpRequest": {
+          "type": "object",
+          "required": ["name", "email", "password", "birthday"],
+          "properties": {
             "name": {
               "type": "string",
               "description": "User's name",
@@ -1394,37 +1312,84 @@
               "description": "User's email",
               "format": "email"
             },
-            "avatarURL": {
+            "password": {
               "type": "string",
-              "description": "User's avatar",
-              "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
+              "description": "User's password",
+              "example": "qwerty123"
             },
             "birthday": {
               "type": "date",
               "description": "User's birthdate",
-              "example": "2000-01-01T05:00:00.000Z"
+              "example": "01.01.2000"
             }
           }
         },
-        "example": {
-          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBhOTM1YWQyNzAxMzg2NzBjYzhhYiIsImlhdCI6MTcwODE3MzY4NSwiZXhwIjoxNzA4MjU2NDg1fQ.VlvFfOaONgtojDztPPMmgxZuHdlxO15oJe1DYe78BgA",
-          "user": {
-            "name": "Anton",
-            "email": "user@example.com",
-            "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
-            "birthday": "2000-01-01T05:00:00.000Z"
+        "SignUpResponse": {
+          "type": "object",
+          "properties": {
+            "user": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Username",
+                  "example": "Anton"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "User's email",
+                  "format": "email"
+                },
+                "avatarURL": {
+                  "type": "string",
+                  "description": "User's avatarURL",
+                  "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
+                },
+                "birthday": {
+                  "type": "date",
+                  "description": "User's birthdate",
+                  "example": "2000-01-01T05:00:00.000Z"
+                }
+              }
+            }
+          },
+          "example": {
+            "user": {
+              "name": "Anton",
+              "email": "user@example.com",
+              "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
+              "birthday": "01.01.2000"
+            }
           }
-        }
-      },
-      "currentResponse": {
-        "type": "object",
-        "properties": {
-          "user": {
-            "type": "object",
-            "properties": {
+        },
+        "SignInRequest": {
+          "type": "object",
+          "required": ["email", "password"],
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "password": {
+              "type": "string",
+              "description": "User's password",
+              "example": "qwerty123"
+            }
+          }
+        },
+        "SignInResponse": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string",
+              "description": "User's token",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBhOTM1YWQyNzAxMzg2NzBjYzhhYiIsImlhdCI6MTcwODE3MzY4NSwiZXhwIjoxNzA4MjU2NDg1fQ.VlvFfOaONgtojDztPPMmgxZuHdlxO15oJe1DYe78BgA"
+            },
+            "user": {
               "name": {
                 "type": "string",
-                "description": "Username",
+                "description": "User's name",
                 "example": "Anton"
               },
               "email": {
@@ -1434,7 +1399,7 @@
               },
               "avatarURL": {
                 "type": "string",
-                "description": "User's avatarURL",
+                "description": "User's avatar",
                 "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
               },
               "birthday": {
@@ -1443,465 +1408,503 @@
                 "example": "2000-01-01T05:00:00.000Z"
               }
             }
-          }
-        },
-        "example": {
-          "user": {
-            "name": "Anton",
-            "email": "user@example.com",
-            "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
-            "birthday": "01.01.2000"
-          }
-        }
-      },
-      "UpdateUserRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Username",
-            "example": "Anton"
-          }
-        }
-      },
-      "UpdateUserResponse": {
-        "type": "object",
-        "properties": {
-          "avatarURL": {
-            "type": "string",
-            "description": "User's avatar",
-            "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
           },
-          "name": {
-            "type": "string",
-            "description": "Username",
-            "example": "Anton"
-          }
-        }
-      },
-      "SubscribeRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          }
-        }
-      },
-      "DrinkInfoResponse": {
-        "type": "object",
-        "properties": {
-          "drink": {
-            "type": "object",
-            "properties": {
-              "drinkId": {
-                "type": "string",
-                "description": "Drink's Id",
-                "example": "639b6de9ff77d221f190c56"
-              }
+          "example": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBhOTM1YWQyNzAxMzg2NzBjYzhhYiIsImlhdCI6MTcwODE3MzY4NSwiZXhwIjoxNzA4MjU2NDg1fQ.VlvFfOaONgtojDztPPMmgxZuHdlxO15oJe1DYe78BgA",
+            "user": {
+              "name": "Anton",
+              "email": "user@example.com",
+              "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
+              "birthday": "2000-01-01T05:00:00.000Z"
             }
           }
         },
-        "example": {
-          "id": "639b6de9ff77d221f190c56",
-          "drink": "Danbooka",
-          "alcoholic": "Alcoholic",
-          "glass": "Coffee Mug",
-          "description": "Danbooka is a unique and flavorful cocktail that combines the richness of bourbon with the sweetness of apricot brandy and the tartness of lemon juice. It is made by shaking bourbon, apricot brandy, lemon juice, and simple syrup together with ice. The result is a complex and satisfying drink with a perfect balance of flavors. Sit back and savor the distinctive taste of Danbooka.",
-          "instructions": "pour it in and mix it.",
-          "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Danbooka.jpg",
-          "ingredients": [
-            {
-              "title": "Coffee",
-              "measure": "3 parts ",
-              "ingredientId": {
-                "_id": "64aebb7f82d96cc69e0eb4e7",
-                "title": "Coffee",
-                "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Coffee.png"
-              }
-            },
-            {
-              "title": "Everclear",
-              "measure": "1 part ",
-              "ingredientId": {
-                "_id": "64aebb7f82d96cc69e0eb4f0",
-                "title": "Everclear",
-                "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Everclear.png"
-              }
-            }
-          ]
-        }
-      },
-      "SerchDrinkByLetterResponse": {
-        "type": "object",
-        "properties": {
-          "drink": {
-            "type": "object",
-            "properties": {
-              "drinkId": {
-                "type": "string",
-                "description": "Drink's letter",
-                "example": "J, ju, jui, juice"
-              }
-            }
-          }
-        },
-        "example": {
-          "_id": "639b6de9ff77d221f190c563",
-          "drink": "Just a Moonmint",
-          "drinkAlternate": "Sorry, not specified",
-          "tags": "Sorry, not specified",
-          "video": "Sorry, not specified",
-          "category": "Shake",
-          "IBA": "Sorry, not specified",
-          "alcoholic": "Non alcoholic",
-          "glass": "Highball Glass",
-          "description": "Just a Moonmint is a refreshing and minty cocktail that combines the flavors of vodka, lime juice, and mint syrup. It is made by shaking vodka, lime juice, mint syrup, and ice together and straining it into a glass. The result is a crisp and invigorating drink with a hint of sweetness from the mint syrup. Sip on this cocktail and let the coolness of the mint refresh your palate.",
-          "instructions": "Place all ingredients in the blender jar - cover and whiz on medium speed until well blended. Pour in one tall, 2 medium or 3 small glasses and drink up.",
-          "instructionsES": "Coloque todos los ingredientes en el vaso de la licuadora, tape y mezcle a velocidad media hasta que estén bien mezclados. Vierta en un vaso alto, 2 medianos o 3 pequeños y beba.",
-          "instructionsDE": "Alle Zutaten in den Mixer geben - abdecken und bei mittlerer Geschwindigkeit schaumig schlagen, bis sie gut vermischt sind. In ein großes, 2 mittlere oder 3 kleine Gläser füllen und geniessen.",
-          "instructionsFR": "Placer tous les ingrédients dans le bol du mélangeur - couvrir et fouetter à vitesse moyenne jusqu'à ce que le tout soit bien mélangé. Verser dans un grand, 2 moyens ou 3 petits verres et boire.",
-          "instructionsIT": "Mettere tutti gli ingredienti nella caraffa del frullatore - coprire e montare a velocità media fino a quando non sono ben amalgamati.Versare in un bicchiere alto, 2 medi o 3 piccoli e bere.",
-          "instructionsRU": "Поместите все ингредиенты в чашу блендера, накройте крышкой и взбивайте на средней скорости, пока они хорошо не перемешаются. Налейте в один высокий, 2 средних или 3 маленьких стакана и выпейте.",
-          "instructionsPL": "Umieść wszystkie składniki w dzbanku blendera - przykryj i ubijaj na średnich obrotach, aż dobrze się połączą. Wlej jedną dużą, 2 średnie lub 3 małe szklanki i wypij.",
-          "instructionsUK": "Помістіть  інгредієнти в ємність блендера, накрийте кришкою та збийте на середній швидкості, поки добре не змішаються. Налийте в одну високу, 2 середні або 3 маленькі склянки і випийте.",
-          "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Just_a_Moonmint.jpg",
-          "ingredients": [
-            {
-              "_id": "65d65b0deb0de643eca5775c",
-              "title": "Milk",
-              "measure": "2 cups",
-              "ingredientId": "64aebb7f82d96cc69e0eb4d5"
-            },
-            {
-              "_id": "65d65b0deb0de643eca5775d",
-              "title": "Chocolate syrup",
-              "ingredientId": "64aebb7f82d96cc69e0eb4d7"
-            },
-            {
-              "_id": "65d65b0deb0de643eca5775e",
-              "title": "Mint syrup",
-              "ingredientId": "64f1d5c269d8333cf130fb61"
-            }
-          ],
-          "shortDescription": "A refreshing and minty cocktail with vodka, lime juice, and mint syrup."
-        }
-      },
-      "SerchDrinkByCategoryResponse": {
-        "type": "object",
-        "properties": {
-          "drink": {
-            "type": "object",
-            "properties": {
-              "drinkId": {
-                "type": "string",
-                "description": "All drinks from the selected category",
-                "example": "Ordinary drink"
-              }
-            }
-          }
-        },
-        "example": {
-          "_id": "639b6de9ff77d221f190c563",
-          "drink": "Just a Moonmint",
-          "drinkAlternate": "Sorry, not specified",
-          "tags": "Sorry, not specified",
-          "video": "Sorry, not specified",
-          "category": "Shake",
-          "IBA": "Sorry, not specified",
-          "alcoholic": "Non alcoholic",
-          "glass": "Highball Glass",
-          "description": "Just a Moonmint is a refreshing and minty cocktail that combines the flavors of vodka, lime juice, and mint syrup. It is made by shaking vodka, lime juice, mint syrup, and ice together and straining it into a glass. The result is a crisp and invigorating drink with a hint of sweetness from the mint syrup. Sip on this cocktail and let the coolness of the mint refresh your palate.",
-          "instructions": "Place all ingredients in the blender jar - cover and whiz on medium speed until well blended. Pour in one tall, 2 medium or 3 small glasses and drink up.",
-          "instructionsES": "Coloque todos los ingredientes en el vaso de la licuadora, tape y mezcle a velocidad media hasta que estén bien mezclados. Vierta en un vaso alto, 2 medianos o 3 pequeños y beba.",
-          "instructionsDE": "Alle Zutaten in den Mixer geben - abdecken und bei mittlerer Geschwindigkeit schaumig schlagen, bis sie gut vermischt sind. In ein großes, 2 mittlere oder 3 kleine Gläser füllen und geniessen.",
-          "instructionsFR": "Placer tous les ingrédients dans le bol du mélangeur - couvrir et fouetter à vitesse moyenne jusqu'à ce que le tout soit bien mélangé. Verser dans un grand, 2 moyens ou 3 petits verres et boire.",
-          "instructionsIT": "Mettere tutti gli ingredienti nella caraffa del frullatore - coprire e montare a velocità media fino a quando non sono ben amalgamati.Versare in un bicchiere alto, 2 medi o 3 piccoli e bere.",
-          "instructionsRU": "Поместите все ингредиенты в чашу блендера, накройте крышкой и взбивайте на средней скорости, пока они хорошо не перемешаются. Налейте в один высокий, 2 средних или 3 маленьких стакана и выпейте.",
-          "instructionsPL": "Umieść wszystkie składniki w dzbanku blendera - przykryj i ubijaj na średnich obrotach, aż dobrze się połączą. Wlej jedną dużą, 2 średnie lub 3 małe szklanki i wypij.",
-          "instructionsUK": "Помістіть  інгредієнти в ємність блендера, накрийте кришкою та збийте на середній швидкості, поки добре не змішаються. Налийте в одну високу, 2 середні або 3 маленькі склянки і випийте.",
-          "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Just_a_Moonmint.jpg",
-          "ingredients": [
-            {
-              "_id": "65d65b0deb0de643eca5775c",
-              "title": "Milk",
-              "measure": "2 cups",
-              "ingredientId": "64aebb7f82d96cc69e0eb4d5"
-            },
-            {
-              "_id": "65d65b0deb0de643eca5775d",
-              "title": "Chocolate syrup",
-              "ingredientId": "64aebb7f82d96cc69e0eb4d7"
-            },
-            {
-              "_id": "65d65b0deb0de643eca5775e",
-              "title": "Mint syrup",
-              "ingredientId": "64f1d5c269d8333cf130fb61"
-            }
-          ],
-          "shortDescription": "A refreshing and minty cocktail with vodka, lime juice, and mint syrup."
-        }
-      },
-      "SerchDrinkByIngredientResponse": {
-        "type": "object",
-        "properties": {
-          "drink": {
-            "type": "object",
-            "properties": {
-              "drinkId": {
-                "type": "string",
-                "description": "All drinks from the selected ingredient",
-                "example": "Kahlua"
-              }
-            }
-          }
-        },
-        "example": {
-          "_id": "639b6de9ff77d221f190c50f",
-          "drink": "Quentin",
-          "drinkAlternate": "Sorry, not specified",
-          "tags": "IBA,ContemporaryClassic",
-          "video": "https://www.youtube.com/watch?v=2jtoa_t7g94",
-          "category": "Ordinary Drink",
-          "IBA": "Contemporary Classics",
-          "alcoholic": "Alcoholic",
-          "glass": "Cocktail glass",
-          "description": "Quentin is a refreshing cocktail that combines the flavors of citrus and mint. It is made with fresh lime juice, orange liqueur, and a touch of mint syrup. The drink is served over ice and garnished with a sprig of mint. It is the perfect beverage for a hot summer day.",
-          "instructions": "In a shaker half-filled with ice cubes, combine the rum, Kahlua, and cream. Shake well. Strain into a cocktail glass and garnish with the nutmeg.",
-          "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
-          "ingredients": [
-            {
-              "_id": "65d65e0729e8f7d6550ba9c6",
-              "title": "Dark rum",
-              "measure": "1 1/2 oz ",
-              "ingredientId": "64aebb7f82d96cc69e0eb4a7"
-            },
-            {
-              "_id": "65d65e0729e8f7d6550ba9c7",
-              "title": "Kahlua",
-              "measure": "1/2 oz ",
-              "ingredientId": "64aebb7f82d96cc69e0eb4bd"
-            },
-            {
-              "_id": "65d65e0729e8f7d6550ba9c8",
-              "title": "Light cream",
-              "measure": "1 oz ",
-              "ingredientId": "64f1d5c069d8333cf130fb31"
-            },
-            {
-              "_id": "65d65e0729e8f7d6550ba9c9",
-              "title": "Nutmeg",
-              "measure": "1/8 tsp grated ",
-              "ingredientId": "64f1d5c069d8333cf130fb34"
-            }
-          ],
-          "shortDescription": "A refreshing and citrusy cocktail with a hint of mint."
-        }
-      },
-      "ListOfDrinksResponse": {
-        "type": "array",
-        "items": {
+        "currentResponse": {
           "type": "object",
           "properties": {
-            "_id": {
-              "type": "string",
-              "description": "Unique identifier for the drink",
-              "example": "65d539ec33830ce177be159b"
-            },
-            "drink": {
-              "type": "string",
-              "description": "Name of the drink",
-              "example": "TestVodka3"
-            },
-            "drinkAlternate": {
-              "type": "string",
-              "description": "Alternative name of the drink (if available)",
-              "example": "AlternativeTest"
-            },
-            "tags": {
-              "type": "string",
-              "description": "Tags associated with the drink",
-              "example": "Vodka, Test, Alcoholic"
-            },
-            "video": {
-              "type": "string",
-              "description": "Link to the video recipe (if available)",
-              "example": "https://www.youtube.com/watch?v=example"
-            },
-            "category": {
-              "type": "string",
-              "description": "Category of the drink",
-              "example": "Ordinary Drink"
-            },
-            "IBA": {
-              "type": "string",
-              "description": "International Bartenders Association classification (if specified)",
-              "example": "Classic"
-            },
-            "alcoholic": {
-              "type": "string",
-              "description": "Indicates whether the drink is alcoholic",
-              "example": "Alcoholic"
-            },
-            "glass": {
-              "type": "string",
-              "description": "Type of glass in which the drink is served",
-              "example": "Highball glass"
-            },
-            "description": {
-              "type": "string",
-              "description": "Detailed description of the drink",
-              "example": "A classic vodka-based cocktail."
-            },
-            "instruction": {
-              "type": "string",
-              "description": "Instructions for preparing the drink",
-              "example": "1. Mix vodka and soda. 2. Garnish with a lemon slice."
-            },
-            "instructionsES": {
-              "type": "string",
-              "description": "Instructions in Spanish (if available)",
-              "example": "Instrucciones en español."
-            },
-            "instructionsDE": {
-              "type": "string",
-              "description": "Instructions in German (if available)",
-              "example": "Anweisungen auf Deutsch."
-            },
-            "instructionsFR": {
-              "type": "string",
-              "description": "Instructions in French (if available)",
-              "example": "Instructions en français."
-            },
-            "instructionsIT": {
-              "type": "string",
-              "description": "Instructions in Italian (if available)",
-              "example": "Istruzioni in italiano."
-            },
-            "instructionsRU": {
-              "type": "string",
-              "description": "Instructions in Russian (if available)",
-              "example": "Инструкции на русском языке."
-            },
-            "instructionsPL": {
-              "type": "string",
-              "description": "Instructions in Polish (if available)",
-              "example": "Instrukcje po polsku."
-            },
-            "instructionsUK": {
-              "type": "string",
-              "description": "Instructions in Ukrainian (if available)",
-              "example": "Інструкції українською мовою."
-            },
-            "drinkThumb": {
-              "type": "string",
-              "description": "Link to the image of the drink (if available)",
-              "example": "https://example.com/drink.jpg"
-            },
-            "ingredients": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "ingredientId": {
-                    "type": "string",
-                    "description": "Unique identifier of the ingredient",
-                    "example": "6068f67ea04f7a001fb92f24"
-                  },
-                  "_id": {
-                    "type": "string",
-                    "description": "Unique identifier of the association with the drink",
-                    "example": "65d539ec33830ce177be159c"
-                  }
+            "user": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Username",
+                  "example": "Anton"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "User's email",
+                  "format": "email"
+                },
+                "avatarURL": {
+                  "type": "string",
+                  "description": "User's avatarURL",
+                  "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
+                },
+                "birthday": {
+                  "type": "date",
+                  "description": "User's birthdate",
+                  "example": "2000-01-01T05:00:00.000Z"
                 }
               }
-            },
-            "shortDescription": {
-              "type": "string",
-              "description": "Brief description of the drink",
-              "example": "A refreshing vodka cocktail."
-            },
-            "owner": {
-              "type": "string",
-              "description": "Unique identifier of the drink owner",
-              "example": "65d2a0f8f692541d5ef893fb"
-            },
-            "favorite": {
-              "type": "array",
-              "description": "List of users who have added the drink to their favorites",
-              "example": ["user1", "user2"]
-            },
-            "createdAt": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Date and time when the drink was created",
-              "example": "2024-02-20T23:46:52.361Z"
-            },
-            "updatedAt": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Date and time of the last update to the drink",
-              "example": "2024-02-20T23:46:52.361Z"
+            }
+          },
+          "example": {
+            "user": {
+              "name": "Anton",
+              "email": "user@example.com",
+              "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
+              "birthday": "01.01.2000"
             }
           }
         },
-        "example": [
-          {
-            "_id": "65d539ec33830ce177be159b",
-            "drink": "TestVodka3",
-            "drinkAlternate": "AlternativeTest",
-            "tags": "Vodka, Test, Alcoholic",
-            "video": "https://www.youtube.com/watch?v=example",
-            "category": "Ordinary Drink",
-            "IBA": "Classic",
+        "UpdateUserRequest": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Username",
+              "example": "Anton"
+            }
+          }
+        },
+        "UpdateUserResponse": {
+          "type": "object",
+          "properties": {
+            "avatarURL": {
+              "type": "string",
+              "description": "User's avatar",
+              "example": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck"
+            },
+            "name": {
+              "type": "string",
+              "description": "Username",
+              "example": "Anton"
+            }
+          }
+        },
+        "SubscribeRequest": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            }
+          }
+        },
+        "DrinkInfoResponse": {
+          "type": "object",
+          "properties": {
+            "drink": {
+              "type": "object",
+              "properties": {
+                "drinkId": {
+                  "type": "string",
+                  "description": "Drink's Id",
+                  "example": "639b6de9ff77d221f190c56"
+                }
+              }
+            }
+          },
+          "example": {
+            "id": "639b6de9ff77d221f190c56",
+            "drink": "Danbooka",
             "alcoholic": "Alcoholic",
-            "glass": "Highball glass",
-            "description": "A classic vodka-based cocktail.",
-            "instruction": "1. Mix vodka and soda. 2. Garnish with a lemon slice.",
-            "instructionsES": "Instrucciones en español.",
-            "instructionsDE": "Anweisungen auf Deutsch.",
-            "instructionsFR": "Instructions en français.",
-            "instructionsIT": "Istruzioni in italiano.",
-            "instructionsRU": "Инструкции на русском языке.",
-            "instructionsPL": "Instrukcje po polsku.",
-            "instructionsUK": "Інструкції українською мовою.",
-            "drinkThumb": "https://example.com/drink.jpg",
+            "glass": "Coffee Mug",
+            "description": "Danbooka is a unique and flavorful cocktail that combines the richness of bourbon with the sweetness of apricot brandy and the tartness of lemon juice. It is made by shaking bourbon, apricot brandy, lemon juice, and simple syrup together with ice. The result is a complex and satisfying drink with a perfect balance of flavors. Sit back and savor the distinctive taste of Danbooka.",
+            "instructions": "pour it in and mix it.",
+            "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Danbooka.jpg",
             "ingredients": [
               {
-                "ingredientId": "6068f67ea04f7a001fb92f24",
-                "_id": "65d539ec33830ce177be159c"
+                "title": "Coffee",
+                "measure": "3 parts ",
+                "ingredientId": {
+                  "_id": "64aebb7f82d96cc69e0eb4e7",
+                  "title": "Coffee",
+                  "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Coffee.png"
+                }
               },
               {
-                "ingredientId": "6068f67ea04f7a001fb92f25",
-                "_id": "65d539ec33830ce177be159d"
+                "title": "Everclear",
+                "measure": "1 part ",
+                "ingredientId": {
+                  "_id": "64aebb7f82d96cc69e0eb4f0",
+                  "title": "Everclear",
+                  "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Everclear.png"
+                }
+              }
+            ]
+          }
+        },
+        "SerchDrinkByLetterResponse": {
+          "type": "object",
+          "properties": {
+            "drink": {
+              "type": "object",
+              "properties": {
+                "drinkId": {
+                  "type": "string",
+                  "description": "Drink's letter",
+                  "example": "J, ju, jui, juice"
+                }
+              }
+            }
+          },
+          "example": {
+            "_id": "639b6de9ff77d221f190c563",
+            "drink": "Just a Moonmint",
+            "drinkAlternate": "Sorry, not specified",
+            "tags": "Sorry, not specified",
+            "video": "Sorry, not specified",
+            "category": "Shake",
+            "IBA": "Sorry, not specified",
+            "alcoholic": "Non alcoholic",
+            "glass": "Highball Glass",
+            "description": "Just a Moonmint is a refreshing and minty cocktail that combines the flavors of vodka, lime juice, and mint syrup. It is made by shaking vodka, lime juice, mint syrup, and ice together and straining it into a glass. The result is a crisp and invigorating drink with a hint of sweetness from the mint syrup. Sip on this cocktail and let the coolness of the mint refresh your palate.",
+            "instructions": "Place all ingredients in the blender jar - cover and whiz on medium speed until well blended. Pour in one tall, 2 medium or 3 small glasses and drink up.",
+            "instructionsES": "Coloque todos los ingredientes en el vaso de la licuadora, tape y mezcle a velocidad media hasta que estén bien mezclados. Vierta en un vaso alto, 2 medianos o 3 pequeños y beba.",
+            "instructionsDE": "Alle Zutaten in den Mixer geben - abdecken und bei mittlerer Geschwindigkeit schaumig schlagen, bis sie gut vermischt sind. In ein großes, 2 mittlere oder 3 kleine Gläser füllen und geniessen.",
+            "instructionsFR": "Placer tous les ingrédients dans le bol du mélangeur - couvrir et fouetter à vitesse moyenne jusqu'à ce que le tout soit bien mélangé. Verser dans un grand, 2 moyens ou 3 petits verres et boire.",
+            "instructionsIT": "Mettere tutti gli ingredienti nella caraffa del frullatore - coprire e montare a velocità media fino a quando non sono ben amalgamati.Versare in un bicchiere alto, 2 medi o 3 piccoli e bere.",
+            "instructionsRU": "Поместите все ингредиенты в чашу блендера, накройте крышкой и взбивайте на средней скорости, пока они хорошо не перемешаются. Налейте в один высокий, 2 средних или 3 маленьких стакана и выпейте.",
+            "instructionsPL": "Umieść wszystkie składniki w dzbanku blendera - przykryj i ubijaj na średnich obrotach, aż dobrze się połączą. Wlej jedną dużą, 2 średnie lub 3 małe szklanki i wypij.",
+            "instructionsUK": "Помістіть  інгредієнти в ємність блендера, накрийте кришкою та збийте на середній швидкості, поки добре не змішаються. Налийте в одну високу, 2 середні або 3 маленькі склянки і випийте.",
+            "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Just_a_Moonmint.jpg",
+            "ingredients": [
+              {
+                "_id": "65d65b0deb0de643eca5775c",
+                "title": "Milk",
+                "measure": "2 cups",
+                "ingredientId": "64aebb7f82d96cc69e0eb4d5"
+              },
+              {
+                "_id": "65d65b0deb0de643eca5775d",
+                "title": "Chocolate syrup",
+                "ingredientId": "64aebb7f82d96cc69e0eb4d7"
+              },
+              {
+                "_id": "65d65b0deb0de643eca5775e",
+                "title": "Mint syrup",
+                "ingredientId": "64f1d5c269d8333cf130fb61"
               }
             ],
-            "shortDescription": "A refreshing vodka cocktail.",
-            "owner": "65d2a0f8f692541d5ef893fb",
-            "favorite": ["user1", "user2"],
-            "createdAt": "2024-02-20T23:46:52.361Z",
-            "updatedAt": "2024-02-20T23:46:52.361Z"
+            "shortDescription": "A refreshing and minty cocktail with vodka, lime juice, and mint syrup."
           }
-        ],
-        "description": "An array of drink objects."
-      }
-    },
-    "securitySchemes": {
-      "Bearer": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "securityDefinitions": {
-      "BearerAuth": {
-        "type": "apiKey",
-        "name": "Authorization",
-        "in": "header"
+        },
+        "SerchDrinkByCategoryResponse": {
+          "type": "object",
+          "properties": {
+            "drink": {
+              "type": "object",
+              "properties": {
+                "drinkId": {
+                  "type": "string",
+                  "description": "All drinks from the selected category",
+                  "example": "Ordinary drink"
+                }
+              }
+            }
+          },
+          "example": {
+            "_id": "639b6de9ff77d221f190c563",
+            "drink": "Just a Moonmint",
+            "drinkAlternate": "Sorry, not specified",
+            "tags": "Sorry, not specified",
+            "video": "Sorry, not specified",
+            "category": "Shake",
+            "IBA": "Sorry, not specified",
+            "alcoholic": "Non alcoholic",
+            "glass": "Highball Glass",
+            "description": "Just a Moonmint is a refreshing and minty cocktail that combines the flavors of vodka, lime juice, and mint syrup. It is made by shaking vodka, lime juice, mint syrup, and ice together and straining it into a glass. The result is a crisp and invigorating drink with a hint of sweetness from the mint syrup. Sip on this cocktail and let the coolness of the mint refresh your palate.",
+            "instructions": "Place all ingredients in the blender jar - cover and whiz on medium speed until well blended. Pour in one tall, 2 medium or 3 small glasses and drink up.",
+            "instructionsES": "Coloque todos los ingredientes en el vaso de la licuadora, tape y mezcle a velocidad media hasta que estén bien mezclados. Vierta en un vaso alto, 2 medianos o 3 pequeños y beba.",
+            "instructionsDE": "Alle Zutaten in den Mixer geben - abdecken und bei mittlerer Geschwindigkeit schaumig schlagen, bis sie gut vermischt sind. In ein großes, 2 mittlere oder 3 kleine Gläser füllen und geniessen.",
+            "instructionsFR": "Placer tous les ingrédients dans le bol du mélangeur - couvrir et fouetter à vitesse moyenne jusqu'à ce que le tout soit bien mélangé. Verser dans un grand, 2 moyens ou 3 petits verres et boire.",
+            "instructionsIT": "Mettere tutti gli ingredienti nella caraffa del frullatore - coprire e montare a velocità media fino a quando non sono ben amalgamati.Versare in un bicchiere alto, 2 medi o 3 piccoli e bere.",
+            "instructionsRU": "Поместите все ингредиенты в чашу блендера, накройте крышкой и взбивайте на средней скорости, пока они хорошо не перемешаются. Налейте в один высокий, 2 средних или 3 маленьких стакана и выпейте.",
+            "instructionsPL": "Umieść wszystkie składniki w dzbanku blendera - przykryj i ubijaj na średnich obrotach, aż dobrze się połączą. Wlej jedną dużą, 2 średnie lub 3 małe szklanki i wypij.",
+            "instructionsUK": "Помістіть  інгредієнти в ємність блендера, накрийте кришкою та збийте на середній швидкості, поки добре не змішаються. Налийте в одну високу, 2 середні або 3 маленькі склянки і випийте.",
+            "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Just_a_Moonmint.jpg",
+            "ingredients": [
+              {
+                "_id": "65d65b0deb0de643eca5775c",
+                "title": "Milk",
+                "measure": "2 cups",
+                "ingredientId": "64aebb7f82d96cc69e0eb4d5"
+              },
+              {
+                "_id": "65d65b0deb0de643eca5775d",
+                "title": "Chocolate syrup",
+                "ingredientId": "64aebb7f82d96cc69e0eb4d7"
+              },
+              {
+                "_id": "65d65b0deb0de643eca5775e",
+                "title": "Mint syrup",
+                "ingredientId": "64f1d5c269d8333cf130fb61"
+              }
+            ],
+            "shortDescription": "A refreshing and minty cocktail with vodka, lime juice, and mint syrup."
+          }
+        },
+        "SerchDrinkByIngredientResponse": {
+          "type": "object",
+          "properties": {
+            "drink": {
+              "type": "object",
+              "properties": {
+                "drinkId": {
+                  "type": "string",
+                  "description": "All drinks from the selected ingredient",
+                  "example": "Kahlua"
+                }
+              }
+            }
+          },
+          "example": {
+            "_id": "639b6de9ff77d221f190c50f",
+            "drink": "Quentin",
+            "drinkAlternate": "Sorry, not specified",
+            "tags": "IBA,ContemporaryClassic",
+            "video": "https://www.youtube.com/watch?v=2jtoa_t7g94",
+            "category": "Ordinary Drink",
+            "IBA": "Contemporary Classics",
+            "alcoholic": "Alcoholic",
+            "glass": "Cocktail glass",
+            "description": "Quentin is a refreshing cocktail that combines the flavors of citrus and mint. It is made with fresh lime juice, orange liqueur, and a touch of mint syrup. The drink is served over ice and garnished with a sprig of mint. It is the perfect beverage for a hot summer day.",
+            "instructions": "In a shaker half-filled with ice cubes, combine the rum, Kahlua, and cream. Shake well. Strain into a cocktail glass and garnish with the nutmeg.",
+            "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg",
+            "ingredients": [
+              {
+                "_id": "65d65e0729e8f7d6550ba9c6",
+                "title": "Dark rum",
+                "measure": "1 1/2 oz ",
+                "ingredientId": "64aebb7f82d96cc69e0eb4a7"
+              },
+              {
+                "_id": "65d65e0729e8f7d6550ba9c7",
+                "title": "Kahlua",
+                "measure": "1/2 oz ",
+                "ingredientId": "64aebb7f82d96cc69e0eb4bd"
+              },
+              {
+                "_id": "65d65e0729e8f7d6550ba9c8",
+                "title": "Light cream",
+                "measure": "1 oz ",
+                "ingredientId": "64f1d5c069d8333cf130fb31"
+              },
+              {
+                "_id": "65d65e0729e8f7d6550ba9c9",
+                "title": "Nutmeg",
+                "measure": "1/8 tsp grated ",
+                "ingredientId": "64f1d5c069d8333cf130fb34"
+              }
+            ],
+            "shortDescription": "A refreshing and citrusy cocktail with a hint of mint."
+          }
+        },
+        "ListOfDrinksResponse": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Unique identifier for the drink",
+                "example": "65d539ec33830ce177be159b"
+              },
+              "drink": {
+                "type": "string",
+                "description": "Name of the drink",
+                "example": "TestVodka3"
+              },
+              "drinkAlternate": {
+                "type": "string",
+                "description": "Alternative name of the drink (if available)",
+                "example": "AlternativeTest"
+              },
+              "tags": {
+                "type": "string",
+                "description": "Tags associated with the drink",
+                "example": "Vodka, Test, Alcoholic"
+              },
+              "video": {
+                "type": "string",
+                "description": "Link to the video recipe (if available)",
+                "example": "https://www.youtube.com/watch?v=example"
+              },
+              "category": {
+                "type": "string",
+                "description": "Category of the drink",
+                "example": "Ordinary Drink"
+              },
+              "IBA": {
+                "type": "string",
+                "description": "International Bartenders Association classification (if specified)",
+                "example": "Classic"
+              },
+              "alcoholic": {
+                "type": "string",
+                "description": "Indicates whether the drink is alcoholic",
+                "example": "Alcoholic"
+              },
+              "glass": {
+                "type": "string",
+                "description": "Type of glass in which the drink is served",
+                "example": "Highball glass"
+              },
+              "description": {
+                "type": "string",
+                "description": "Detailed description of the drink",
+                "example": "A classic vodka-based cocktail."
+              },
+              "instruction": {
+                "type": "string",
+                "description": "Instructions for preparing the drink",
+                "example": "1. Mix vodka and soda. 2. Garnish with a lemon slice."
+              },
+              "instructionsES": {
+                "type": "string",
+                "description": "Instructions in Spanish (if available)",
+                "example": "Instrucciones en español."
+              },
+              "instructionsDE": {
+                "type": "string",
+                "description": "Instructions in German (if available)",
+                "example": "Anweisungen auf Deutsch."
+              },
+              "instructionsFR": {
+                "type": "string",
+                "description": "Instructions in French (if available)",
+                "example": "Instructions en français."
+              },
+              "instructionsIT": {
+                "type": "string",
+                "description": "Instructions in Italian (if available)",
+                "example": "Istruzioni in italiano."
+              },
+              "instructionsRU": {
+                "type": "string",
+                "description": "Instructions in Russian (if available)",
+                "example": "Инструкции на русском языке."
+              },
+              "instructionsPL": {
+                "type": "string",
+                "description": "Instructions in Polish (if available)",
+                "example": "Instrukcje po polsku."
+              },
+              "instructionsUK": {
+                "type": "string",
+                "description": "Instructions in Ukrainian (if available)",
+                "example": "Інструкції українською мовою."
+              },
+              "drinkThumb": {
+                "type": "string",
+                "description": "Link to the image of the drink (if available)",
+                "example": "https://example.com/drink.jpg"
+              },
+              "ingredients": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "ingredientId": {
+                      "type": "string",
+                      "description": "Unique identifier of the ingredient",
+                      "example": "6068f67ea04f7a001fb92f24"
+                    },
+                    "_id": {
+                      "type": "string",
+                      "description": "Unique identifier of the association with the drink",
+                      "example": "65d539ec33830ce177be159c"
+                    }
+                  }
+                }
+              },
+              "shortDescription": {
+                "type": "string",
+                "description": "Brief description of the drink",
+                "example": "A refreshing vodka cocktail."
+              },
+              "owner": {
+                "type": "string",
+                "description": "Unique identifier of the drink owner",
+                "example": "65d2a0f8f692541d5ef893fb"
+              },
+              "favorite": {
+                "type": "array",
+                "description": "List of users who have added the drink to their favorites",
+                "example": ["user1", "user2"]
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Date and time when the drink was created",
+                "example": "2024-02-20T23:46:52.361Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Date and time of the last update to the drink",
+                "example": "2024-02-20T23:46:52.361Z"
+              }
+            }
+          },
+          "example": [
+            {
+              "_id": "65d539ec33830ce177be159b",
+              "drink": "TestVodka3",
+              "drinkAlternate": "AlternativeTest",
+              "tags": "Vodka, Test, Alcoholic",
+              "video": "https://www.youtube.com/watch?v=example",
+              "category": "Ordinary Drink",
+              "IBA": "Classic",
+              "alcoholic": "Alcoholic",
+              "glass": "Highball glass",
+              "description": "A classic vodka-based cocktail.",
+              "instruction": "1. Mix vodka and soda. 2. Garnish with a lemon slice.",
+              "instructionsES": "Instrucciones en español.",
+              "instructionsDE": "Anweisungen auf Deutsch.",
+              "instructionsFR": "Instructions en français.",
+              "instructionsIT": "Istruzioni in italiano.",
+              "instructionsRU": "Инструкции на русском языке.",
+              "instructionsPL": "Instrukcje po polsku.",
+              "instructionsUK": "Інструкції українською мовою.",
+              "drinkThumb": "https://example.com/drink.jpg",
+              "ingredients": [
+                {
+                  "ingredientId": "6068f67ea04f7a001fb92f24",
+                  "_id": "65d539ec33830ce177be159c"
+                },
+                {
+                  "ingredientId": "6068f67ea04f7a001fb92f25",
+                  "_id": "65d539ec33830ce177be159d"
+                }
+              ],
+              "shortDescription": "A refreshing vodka cocktail.",
+              "owner": "65d2a0f8f692541d5ef893fb",
+              "favorite": ["user1", "user2"],
+              "createdAt": "2024-02-20T23:46:52.361Z",
+              "updatedAt": "2024-02-20T23:46:52.361Z"
+            }
+          ],
+          "description": "An array of drink objects."
+        }
+      },
+      "securitySchemes": {
+        "Bearer": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "securityDefinitions": {
+        "BearerAuth": {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header"
+        }
       }
     }
   }
-
 }
 
