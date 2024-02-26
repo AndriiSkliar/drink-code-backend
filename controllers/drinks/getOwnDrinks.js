@@ -2,15 +2,21 @@ const { Drink } = require("../../models/drink");
 
 const getOwnDrinks = async (req, res) => {
   const { _id: owner } = req.user;
-  const { page = 1, limit = 10 } = req.query;
-  const skip = (page - 1) * limit;
 
-  const result = await Drink.find({ owner })
-    .sort({ createdAt: -1 })
-    .skip(skip)
-    .limit(limit);
-
-  const totalOwnDrinks = await Drink.countDocuments({ owner });
+  const result = await Drink.find({
+    users: {
+      $elemMatch: {
+        $eq: owner,
+      },
+    },
+  }).sort({ createdAt: -1 });
+  const totalOwnDrinks = await Drink.countDocuments({
+    users: {
+      $elemMatch: {
+        $eq: owner,
+      },
+    },
+  });
 
   res.json({ total: totalOwnDrinks, drinks: result });
 };
