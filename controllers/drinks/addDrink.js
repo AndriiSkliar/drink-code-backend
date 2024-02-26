@@ -1,7 +1,5 @@
 const { Drink, drinkJoiSchema } = require("../../models/drink");
 
-const cloudinary = require("cloudinary");
-
 const addDrink = async (req, res, next) => {
   const response = drinkJoiSchema.validate(req.body, { abortEarly: false });
 
