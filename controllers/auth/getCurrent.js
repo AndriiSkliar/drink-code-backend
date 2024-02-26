@@ -11,6 +11,7 @@ const getCurrent = async (req, res) => {
     avatarURL: user.avatarURL,
     birthday: user.birthday,
     id: user._id,
+    isAdult: user.isAdult,
   });
 };
 
