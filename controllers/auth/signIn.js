@@ -35,6 +35,7 @@ const signIn = async (req, res) => {
       email: user.email,
       avatarURL: user.avatarURL,
       birthday: user.birthday,
+      isAdult: user.isAdult,
     },
   });
 };
