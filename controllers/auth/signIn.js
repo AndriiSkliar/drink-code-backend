@@ -17,7 +17,7 @@ const signIn = async (req, res) => {
   }
 
   if (!user.verify) {
-    throw HttpError(401, "Email not verified");
+    throw HttpError(403, "Email not verified");
   }
 
   const payload = {

@@ -8,10 +8,10 @@ const resendVerifyEmail = async (req, res) => {
     const {email} = req.body;
     const user = await User.findOne({email});
     if(!user) {
-        throw HttpError(401, "User not found");
+        throw HttpError(404, "User not found");
     }
     if(user.verify) {
-        throw HttpError(401, "Verification has already been passed");
+        throw HttpError(409, "Verification has already been passed");
     }
 
     const verifyEmail = {

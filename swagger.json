@@ -27,6 +27,10 @@
     {
       "name": "Drinks",
       "description": "Endpoint for requesting information about drinks"
+    },
+    {
+      "name": "Filters",
+      "description": "Endpoint for use filters for categories, ingredients, glasses"
     }
   ],
   "paths": {
@@ -59,11 +63,41 @@
           },
           "400": {
             "description": "Bad Request",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Bad Request"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Bad Request"
+                }
+              }
+            } 
           },
           "409": {
             "description": "Email in use",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Email in use"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Email in use"
+                }
+              }
+            }
           }
         }
       }
@@ -134,7 +168,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Email not verified",
             "content": {
               "application/json": {
                 "schema": {
@@ -142,12 +176,12 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "description": "Forbidden"
+                      "description": "Email not verified"
                     }
                   }
                 },
                 "example": {
-                  "message": "Forbidden"
+                  "message": "Email not verified"
                 }
               }
             }
@@ -174,7 +208,7 @@
         }
       }
     },
-    "/auth/signout": {
+    "/api/auth/signout": {
       "post": {
         "tags": ["Auth"],
         "summary": "Signs out user",
@@ -207,7 +241,172 @@
         }
       }
     },
-    "/users/current": {
+    "/api/auth/verify": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Verify user's email",
+        "parameters": [],
+        "requestBody": {
+          "description": "# Description of the request parameters:\n**email** - string, user email.",
+          "required": true,
+          "content": {
+            "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyRequest"
+                }
+              }
+            }
+          },
+        "responses": {
+          "200": {
+            "description": "Verification email sent",
+            "content": {              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Verification email sent"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Verification email sent"
+                }
+              }}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Bad Request"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Bad Request"
+                }
+              }
+            } 
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "User not found"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "User not found"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Verification has already been passed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Verification has already been passed"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Verification has already been passed"
+                }
+              }
+            }
+          }
+        }
+      }  
+    },
+    "/api/auth/verify/{verificationToken}": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Verify user's email",
+        "parameters": [{
+            "in": "path",
+            "name": "verificationToken",
+            "required": true,
+            "type": "string",
+            "description": "verificationToken"
+          }],
+        "responses": {
+          "200": {
+            "description": "Verification successful",
+            "content": {              
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Verification successful"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Verification email sent"
+                }
+              }}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Bad Request"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Bad Request"
+                }
+              }
+            } 
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "User not found"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "User not found"
+                }
+              }
+            }
+          }
+        }
+      }  
+    },
+    "/api/users/current": {
       "get": {
         "tags": ["Users"],
         "summary": "Information about the user",
@@ -246,7 +445,7 @@
         }
       }
     },
-    "/users/update": {
+    "/api/users/update": {
       "patch": {
         "tags": ["Users"],
         "summary": "Updating user information",
@@ -365,7 +564,7 @@
         }
       }
     },
-    "/users/subscribe": {
+    "/api/users/subscribe": {
       "post": {
         "tags": ["Users"],
         "summary": "Subscription to information mailing",
@@ -1295,8 +1494,299 @@
       }
     }
     },
-
-    "components": {
+    "/api/filters/categories": {
+      "get": {
+        "summary": "Getting a list of categories of cocktails",
+        "description": "Returns a list of categories cocktails",
+        "tags": ["Filters"],
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response with the list of categories of drinks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOfCategories"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Bad Request."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Not authorized"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No categories found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "No categories found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Server Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/filters/ingredients": {
+      "get": {
+        "summary": "Getting a list of ingredients for cocktails",
+        "description": "Returns a list of ingredients for cocktails",
+        "tags": ["Filters"],
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response with the list of ingredients for cocktails",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOfIngredients"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Bad Request."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Not authorized"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No categories found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "No categories found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Server Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/filters/glasses": {
+      "get": {
+        "summary": "Getting a list of glasses for cocktails",
+        "description": "Returns a list of glasses for cocktails",
+        "tags": ["Filters"],
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful response with the list of glasses for cocktails",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOfGlasses"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Bad Request."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Not authorized"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No categories found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "No categories found"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  },
+                  "example": {
+                    "message": "Server Error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
       "schemas": {
         "SignUpRequest": {
           "type": "object",
@@ -1349,6 +1839,11 @@
                   "type": "date",
                   "description": "User's birthdate",
                   "example": "2000-01-01T05:00:00.000Z"
+                },
+                "isAdult": {
+                  "type": "boolean",
+                  "description": "If user adult",
+                  "example": "true"
                 }
               }
             }
@@ -1358,7 +1853,19 @@
               "name": "Anton",
               "email": "user@example.com",
               "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
-              "birthday": "01.01.2000"
+              "birthday": "01.01.2000",
+              "isAdult": "true"
+            }
+          }
+        },
+        "VerifyRequest": {
+          "type": "object",
+          "required": ["email"],
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
             }
           }
         },
@@ -1406,6 +1913,11 @@
                 "type": "date",
                 "description": "User's birthdate",
                 "example": "2000-01-01T05:00:00.000Z"
+              },
+              "isAdult": {
+                "type": "boolean",
+                "description": "If user adult",
+                "example": "true"
               }
             }
           },
@@ -1415,7 +1927,8 @@
               "name": "Anton",
               "email": "user@example.com",
               "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
-              "birthday": "2000-01-01T05:00:00.000Z"
+              "birthday": "2000-01-01T05:00:00.000Z",
+              "isAdult":"true"
             }
           }
         },
@@ -1888,6 +2401,89 @@
             }
           ],
           "description": "An array of drink objects."
+        },
+        "ListOfCategories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Category of the drink",
+                "example": "Ordinary Drink"
+              }
+            }
+          },
+          "example": [
+            {
+              "category": "Ordinary Drink"
+            },
+            {
+              "category": "Cocktail"
+            },
+            {
+              "category": "Shake"
+            }
+          ],
+          "description": "An array of categories of coctails"
+        },
+        "ListOfIngredients": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "id of ingredient",
+                "example": "64aebb7f82d96cc69e0eb4a4"
+              },
+              "title": {
+                "type": "string",
+                "description": "title of ingredient",
+                "example": "Light rum"
+              }
+            }
+          },
+          "example": [
+            {
+              "id": "64aebb7f82d96cc69e0eb4a4",
+              "title": "Light rum"
+            },
+            {
+              "id": "64aebb7f82d96cc69e0eb4a5",
+              "title": "Applejack"
+            },
+            {
+              "id": "64aebb7f82d96cc69e0eb4a6",
+              "title": "Gin"
+            }
+          ],
+          "description": "An array of ingredients for the coctails"
+        },
+        "ListOfGlasses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "glass": {
+                "type": "string",
+                "description": "Glasses for the drink",
+                "example": "Highball glass"
+              }
+            }
+          },
+          "example": [
+            {
+              "glass": "Highball glass"
+            },
+            {
+              "glass": "Cocktail glass"
+            },
+            {
+              "glass": "Old-fashioned glass"
+            }
+          ],
+          "description": "An array of glasses for the coctails"
         }
       },
       "securitySchemes": {
@@ -1904,7 +2500,7 @@
           "in": "header"
         }
       }
-    }
   }
 }
+
 
