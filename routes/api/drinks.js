@@ -16,7 +16,6 @@ const {
 const {
   getDrinksByCategory,
   getPopularDrinks,
-  getDrinks,
   getAllDrinks,
   getDrinksByIngredient,
   getDrinksByFilters,
