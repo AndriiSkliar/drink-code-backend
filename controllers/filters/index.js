@@ -8,6 +8,7 @@ const getPopularDrinks = require("./getPopularDrinks");
 const getAllIngredients = require("./getAllIngredients");
 const getAllGlasses = require("./getAllGlasses");
 const getAllCategories = require("./getAllCategories");
+const getDrinksByFilters = require("./getDrinksByFilters");
 
 module.exports = {
   getDrinks: ctrlWrapper(getDrinks),
@@ -18,4 +19,5 @@ module.exports = {
   getAllIngredients: ctrlWrapper(getAllIngredients),
   getAllGlasses: ctrlWrapper(getAllGlasses),
   getAllCategories: ctrlWrapper(getAllCategories),
+  getDrinksByFilters: ctrlWrapper(getDrinksByFilters),
 };
