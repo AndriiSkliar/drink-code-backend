@@ -2239,31 +2239,62 @@
           "example": {
             "id": "639b6de9ff77d221f190c56",
             "drink": "Danbooka",
+            "drinkAlternate": "Sorry, not specified",
+            "tags": "Sorry, not specified",
+            "video": "Sorry, not specified",
+            "category": "Coffee / Tea",
+            "IBA": "Sorry, not specified",
             "alcoholic": "Alcoholic",
             "glass": "Coffee Mug",
             "description": "Danbooka is a unique and flavorful cocktail that combines the richness of bourbon with the sweetness of apricot brandy and the tartness of lemon juice. It is made by shaking bourbon, apricot brandy, lemon juice, and simple syrup together with ice. The result is a complex and satisfying drink with a perfect balance of flavors. Sit back and savor the distinctive taste of Danbooka.",
             "instructions": "pour it in and mix it.",
+            "instructionsES": "viértelo y mézclalo.",
+            "instructionsDE": "Einfüllen und vermengen.",
+            "instructionsFR": "versez-le et mélangez-le.",
+            "instructionsIT": "Versare tutti gli ingredienti in un bicchiere, mescola bene.",
+            "instructionsRU": "влить и перемешать.",
+            "instructionsPL": "wlej i wymieszaj.",
+            "instructionsUK": "влити і перемішати.",
             "drinkThumb": "https://ftp.goit.study/img/drinkify/recipes/Danbooka.jpg",
             "ingredients": [
-              {
+        {
+            "_id": "65ddae285b825ccdb50a8786",
+            "title": "Coffee",
+            "measure": "3 parts ",
+            "ingredientId": {
+                "_id": "64aebb7f82d96cc69e0eb4e7",
                 "title": "Coffee",
-                "measure": "3 parts ",
-                "ingredientId": {
-                  "_id": "64aebb7f82d96cc69e0eb4e7",
-                  "title": "Coffee",
-                  "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Coffee.png"
-                }
-              },
-              {
+                "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Coffee.png",
+                "thumb-medium": "https://ftp.goit.study/img/drinkify/ingredients/Coffee-Medium.png",
+                "thumb-small": "https://ftp.goit.study/img/drinkify/ingredients/Coffee-Small.png",
+                "abv": "0",
+                "alcohol": "No",
+                "description": "Coffee is a brewed drink prepared from roasted coffee beans, which are the seeds of berries from the Coffea plant. The genus Coffea is native to tropical Africa (specifically having its origin in Ethiopia and Sudan) and Madagascar, the Comoros, Mauritius, and Réunion in the Indian Ocean. The plant was exported from Africa to countries around the world and coffee plants are now cultivated in over 70 countries, primarily in the equatorial regions of the Americas, Southeast Asia, India, and Africa. The two most commonly grown are the highly regarded arabica, and the less sophisticated but stronger and more hardy robusta. Once ripe, coffee berries are picked, processed, and dried. Dried coffee seeds (referred to as beans) are roasted to varying degrees, depending on the desired flavour. Roasted beans are ground and brewed with near-boiling water to produce coffee as a beverage.\r\n\r\nCoffee is slightly acidic and can have a stimulating effect on humans because of its caffeine content. Coffee is one of the most popular drinks in the world. It can be prepared and presented in a variety of ways (e.g., espresso, French press, cafe latte, etc.). It is usually served hot, although iced coffee is also served. Clinical studies indicate that moderate coffee consumption is benign or mildly beneficial in healthy adults, with continuing research on whether long-term consumption inhibits cognitive decline during aging or lowers the risk of some forms of cancer.\r\n\r\nThe earliest credible evidence of coffee-drinking appears in the middle of the 15th century in the Sufi shrines of Yemen. It was here in Arabia that coffee seeds were first roasted and brewed in a similar way to how it is now prepared. Coffee seeds were first exported from East Africa to Yemen, as the coffea arabica plant is thought to have been indigenous to the former. Yemeni traders took coffee back to their homeland and began to cultivate the seed. By the 16th century, it had reached Persia, Turkey, and North Africa. From there, it spread to Europe and the rest of the world.\r\n\r\nCoffee is a major export commodity: it is the top agricultural export for numerous countries and is among the world's largest legal agricultural exports. It is one of the most valuable commodities exported by developing countries. Green (unroasted) coffee is one of the most traded agricultural commodities in the world. Some controversy is associated with coffee cultivation and the way developed countries trade with developing nations and the impact of its cultivation on the environment, in regards to clearing of land for coffee-growing and water use. Consequently, the markets for fair trade coffee and organic coffee are expanding.",
+                "type": "Coffee",
+                "flavour": "coffee",
+                "country": "Ethiopia"
+            }
+        },
+        {
+            "_id": "65ddae285b825ccdb50a8787",
+            "title": "Everclear",
+            "measure": "1 part ",
+            "ingredientId": {
+                "_id": "64aebb7f82d96cc69e0eb4f0",
                 "title": "Everclear",
-                "measure": "1 part ",
-                "ingredientId": {
-                  "_id": "64aebb7f82d96cc69e0eb4f0",
-                  "title": "Everclear",
-                  "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Everclear.png"
-                }
-              }
-            ]
+                "ingredientThumb": "https://ftp.goit.study/img/drinkify/ingredients/Everclear.png",
+                "thumb-medium": "https://ftp.goit.study/img/drinkify/ingredients/Everclear-Medium.png",
+                "thumb-small": "https://ftp.goit.study/img/drinkify/ingredients/Everclear-Small.png",
+                "abv": "0",
+                "alcohol": "No",
+                "description": "Everclear is a brand of high-proof grain alcohol (ethanol) that is known for its very high alcohol content. It is often used as a base for cocktails, mixed drinks, and tinctures due to its potency. Everclear is available in different proof levels, with the most common varieties being 151 and 190 proof (75.5 and 95 alcohol by volume, respectively).",
+                "type": "Grain Alcohol",
+                "flavour": "sugar",
+                "country": "United States"
+            }
+        }
+    ],
+     "shortDescription": "A unique and flavorful cocktail with bourbon, apricot brandy, and lemon juice."
           }
         },
         "SerchDrinkByLetterResponse": {
