@@ -461,7 +461,7 @@
                 "in": "formData",
                 "type": "object",
                 "properties": {
-                  "image": {
+                  "avatarURL": {
                     "type": "file",
                     "format": "binary"
                   }
@@ -2204,6 +2204,11 @@
               "type": "string",
               "description": "Username",
               "example": "Anton"
+            },
+            "avatarURL": {
+              "type": "string",
+              "format": "binary",
+              "description": "Avatar file in binary format"
             }
           }
         },
