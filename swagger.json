@@ -2174,7 +2174,15 @@
                   "type": "date",
                   "description": "User's birthdate",
                   "example": "2000-01-01T05:00:00.000Z"
-                }
+                },
+                "id": {
+                  "type": "string",
+                  "description": "User's id",
+                  "example": "65dd88d44d352f723e9decc1"
+                },
+                "isAdult": "boolean",
+                "description": "if more than 18 years will be true",
+                "example": "false"
               }
             }
           },
@@ -2183,7 +2191,9 @@
               "name": "Anton",
               "email": "user@example.com",
               "avatarURL": "https://res.cloudinary.com/dk6hnmt4s/image/upload/f_auto,q_auto/v1/avatar/xclhvbf8zl0rllwgrbck",
-              "birthday": "01.01.2000"
+              "birthday": "01.01.2000",
+              "id": "65dd88d44d352f723e9decc1",
+              "isAdult": "false"
             }
           }
         },
