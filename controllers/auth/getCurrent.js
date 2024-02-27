@@ -1,17 +1,13 @@
-const { User } = require("../../models/user");
-
 const getCurrent = async (req, res) => {
-  const { email } = req.user;
-  console.log(email);
-  const user = await User.findOne({ email });
+  const { email, name, avatarURL, birthday, _id, isAdult } = req.user;
 
   res.json({
-    name: user.name,
+    name,
     email,
-    avatarURL: user.avatarURL,
-    birthday: user.birthday,
-    id: user._id,
-    isAdult: user.isAdult,
+    avatarURL,
+    birthday,
+    id: _id,
+    isAdult,
   });
 };
 
