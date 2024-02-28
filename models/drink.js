@@ -276,10 +276,20 @@ const searchByIngridientsSchema = Joi.object({
       "For search drinks, you must choose one of the following ingredients:",
   }),
 });
+
+const searchDrinksByFiltersSchema = Joi.object({
+  drink: Joi.string(),
+  ingredient: Joi.string(),
+  category: Joi.string().max(20).messages({
+    "string.max": "Category should have at most 20 characters",
+  }),
+});
+
 module.exports = {
   Drink,
   drinkJoiSchema,
   searchByCategorySchema,
   searchDrinkSchema,
   searchByIngridientsSchema,
+  searchDrinksByFiltersSchema,
 };
