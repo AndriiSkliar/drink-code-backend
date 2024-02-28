@@ -2,9 +2,10 @@ const { Drink } = require("../../models/drink");
 const { fullYearsCount, HttpError } = require("../../helpers");
 
 const getDrinksByFilters = async (req, res) => {
-  const { category, ingredient, drink, page = 1, limit = 8 } = req.query;
+  const { category, ingredient, drink } = req.query;
   const { birthday } = req.user;
-  const skip = (page - 1) * limit;
+  // , page = 1, limit = 8
+  // const skip = (page - 1) * limit;
   const fullYears = await fullYearsCount(birthday);
   const alcoholic = fullYears >= 18 ? "" : "Non alcoholic";
   const query = {};
