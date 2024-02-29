@@ -39,7 +39,7 @@ router.get("/", authenticate, getAllDrinks);
 // GET/popular Отримання популярних  коктейлів
 router.get("/popular", authenticate, getPopularDrinks);
 
-router.get(
+router.post(
   "/search",
   authenticate,
   validateBody(searchDrinksByFiltersSchema),
