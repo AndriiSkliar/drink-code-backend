@@ -43,6 +43,7 @@ router.get(
   "/search",
   authenticate,
   validateBody(searchDrinksByFiltersSchema),
+  jsonParser,
   getDrinksByFilters
 );
 router.get("/search/category", authenticate, jsonParser, getDrinksByCategory);
