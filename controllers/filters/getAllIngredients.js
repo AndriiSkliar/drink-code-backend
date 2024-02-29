@@ -1,7 +1,15 @@
 const { Ingredient } = require("../../models/ingridents");
 
 const getAllIngredients = async (req, res) => {
-  const ingredients = await Ingredient.find();
+  const { isAdult } = req.user;
+  let ingredients;
+  if (isAdult === true) {
+    ingredients = await Ingredient.find();
+  } else {
+    ingredients = await Ingredient.find({ alcohol: "No" });
+  }
+
+  console.log("ingredients", ingredients.length);
 
   if (ingredients.length === 0) {
     return res.status(404).json({ message: "No ingredients found" });
